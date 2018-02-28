@@ -22,5 +22,7 @@
 [help]
 	autocorrect = 1
 [push]
-	default = simple
+	default = current
 	followTags = true
+[format]
+  pretty = format:"%Cred%h%Creset%C(yellow)%d%Creset %s %C(bold blue)<%an>%n%C(magenta)%ad %Cgreen(%cr)%Creset%n"
