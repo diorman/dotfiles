@@ -1,12 +1,17 @@
 {
-    "editor.fontSize": 14,
-    "editor.rulers": [80],
-    "editor.scrollBeyondLastLine": false,
-    "editor.renderWhitespace": "all",
-    "editor.renderControlCharacters": true,
-    "editor.folding": false,
-    "editor.tabSize": 2,
-    "files.trimTrailingWhitespace": true,
-    "files.insertFinalNewline": true,
-    "workbench.colorTheme": "Monokai"
-  }
+  "editor.fontSize": 14,
+  "editor.rulers": [80],
+  "editor.scrollBeyondLastLine": false,
+  "editor.renderWhitespace": "all",
+  "editor.renderControlCharacters": true,
+  "editor.folding": false,
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "workbench.colorTheme": "Monokai",
+  "window.zoomLevel": 0,
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "go.useLanguageServer": true
+}
