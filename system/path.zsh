@@ -1,7 +1,7 @@
 #!/bin/sh
 
-export PATH=$PATH:~/bin
 export CDPATH=$HOME/Projects/src
+export PATH="$DOTFILES/bin:$HOME/bin:$PATH"
 
 # GNU utilities
 for gnupath in "coreutils/libexec/gnubin" \
@@ -12,6 +12,7 @@ for gnupath in "coreutils/libexec/gnubin" \
 	"gnu-indent/libexec/gnubin" \
 	"gnu-getopt/bin" \
 	"grep/libexec/gnubin" \
-  "make/libexec/gnubin"; do
+	"curl/bin" \
+	"make/libexec/gnubin"; do
 	export PATH="/usr/local/opt/$gnupath:$PATH"
 done
