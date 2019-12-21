@@ -13,7 +13,11 @@ JAVA_DEFAULT_VERSION=1.8
 NODE_VERSIONS=(10.18.0 12.14.0)
 NODE_DEFAULT_VERSION=12.14.0
 
-. $DOTFILES/installer/log.inc.sh
+source $DOTFILES/installer/log.inc.sh
+
+if test -f $HOME/.localrc; then
+	source $HOME/.localrc
+fi
 
 install_brew() {
 	info "checking homebrew installation..."
