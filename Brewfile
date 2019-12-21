@@ -44,6 +44,8 @@ brew "gnu-sed"
 brew "gnu-tar"
 # GNU Transport Layer Security (TLS) Library
 brew "gnutls"
+# GNU Pretty Good Privacy (PGP) package
+brew "gnupg"
 # GNU grep, egrep and fgrep
 brew "grep"
 # Calculate various network masks, etc. from a given IP address
