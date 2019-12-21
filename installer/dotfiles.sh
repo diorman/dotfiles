@@ -4,7 +4,7 @@
 cd "$(dirname "$0")/.."
 DOTFILES=$(pwd -P)
 
-. $DOTFILES/script/log.inc.sh
+. $DOTFILES/installer/log.inc.sh
 
 set -e
 
