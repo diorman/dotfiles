@@ -2,6 +2,9 @@
 
 git config --global include.path ~/.gitconfig.local
 
+# The user email is set dynamically with git-get
+git config --global user.name "Diorman Colmenares"
+
 # Don't ask ssh password all the time
 if [ "$(uname -s)" = "Darwin" ]; then
 	git config --global credential.helper osxkeychain
