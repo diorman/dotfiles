@@ -1,9 +1,5 @@
 #!/bin/sh
 
-if test -f $HOME/.localrc; then
-	source $HOME/.localrc
-fi
-
 git_get_log_error() {
 	>&2 echo "ERROR: $1"
 }
@@ -15,10 +11,6 @@ git_get_log_info() {
 git_get_count_url_parts() {
 	local slashes="${1//[^\/]}"
 	echo $((${#slashes} + 1))
-}
-
-git_get_url_parts() {
-	echo $(echo "$1" | awk '{ split($0,a,"/"); printf "%s %s %s",a[1],a[2],a[3] }')
 }
 
 git_get_to_canonical_url() {
@@ -74,14 +66,15 @@ git_get_main() {
 		return 1
 	fi
 
-	if [[ ! $(declare -f __git_get_user_email__) > /dev/null ]]; then
-		git_get_log_error "function __git_get_user_email__ must be declared in $HOME/.localrc"
-		return 1
+	local repo="$1"
+
+	if [[ "$repo" == "." ]]; then
+		local canonical_url=${PWD#"$GIT_GET_PATH/"}
+	else
+		local canonical_url=$(git_get_to_canonical_url $repo)
 	fi
 
-	local repo="$1"
-	local canonical_url=$(git_get_to_canonical_url $repo)
-	local dest="${GIT_GET_PATH:-"$HOME/Projects/src"}/$canonical_url"
+	local dest="$GIT_GET_PATH/$canonical_url"
 	local clone_url=$(git_get_to_git_url $canonical_url)
 
 	if test -d $dest; then
@@ -95,17 +88,15 @@ git_get_main() {
 		}
 	fi
 
-	cd $dest
-
-	local email=$(__git_get_user_email__ $(git_get_url_parts $canonical_url))
-	local current_email=$(git config --local user.email)
-
-	[[ -n $email  ]] &&
-		[[ $current_email != $email ]] &&
-		git_get_log_info "setting git user email to $email" &&
-		git config --local user.email $email
+	if ! test -d "$dest/.git"; then
+		git_get_log_error "$dest is not a git repository"
+		return 1
+	fi
 
 	git_get_cleanup
+
+	# Only takes effect when the script is sourced
+	cd $dest
 }
 
 if git_get_sourced; then
