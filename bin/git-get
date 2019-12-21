@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -e
-
 git_get_log_error() {
 	>&2 echo "ERROR: $1"
 }
@@ -55,7 +53,10 @@ git_get_main() {
 		git_get_log_info "destination path already exists: $dest. Skipping cloning"
 	else
 		mkdir -p $dest
-		git clone $clone_url $dest || rm -rf $dest
+		git clone $clone_url $dest || {
+			rm -rf $dest
+			return 1
+		}
 	fi
 }
 
@@ -67,9 +68,9 @@ git_get_dest() {
 
 git_get_sourced() {
 	if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
-		echo "true"
+		return 0
 	else
-		echo "false"
+		return 1
 	fi
 }
 
@@ -88,6 +89,15 @@ git_get_cleanup() {
 	done
 }
 
-echo $(git_get_sourced)
-
-git_get_cleanup
+if git_get_sourced; then
+	if git_get_main "$@"; then
+		cd $(git_get_dest "$@")
+		git_get_cleanup
+	else
+		git_get_cleanup
+		return 1
+	fi
+else
+	set -e
+	git_get_main "$@"
+fi
