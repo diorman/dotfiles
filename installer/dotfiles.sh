@@ -4,7 +4,11 @@
 cd "$(dirname "$0")/.."
 DOTFILES=$(pwd -P)
 
-. $DOTFILES/installer/log.inc.sh
+source $DOTFILES/installer/log.inc.sh
+
+if test -f $HOME/.localrc; then
+	source $HOME/.localrc
+fi
 
 set -e
 
