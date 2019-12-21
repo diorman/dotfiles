@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-set -e
-
 if test -d $HOME/.nvm; then
 
 	__nvm_init() {
