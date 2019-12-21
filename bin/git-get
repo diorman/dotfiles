@@ -65,6 +65,14 @@ git_get_dest() {
 	echo "${GIT_GET_PATH:-"$HOME/Projects/src"}/$canonical_url"
 }
 
+git_get_sourced() {
+	if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
 git_get_cleanup() {
 	for fn in "git_get_main" \
 		"git_get_log_error" \
@@ -73,8 +81,13 @@ git_get_cleanup() {
 		"git_get_to_canonical_url" \
 		"git_get_cleanup" \
     "git_get_dest" \
+		"git_get_sourced" \
 		"git_get_to_git_url"; do
 
 		unset -f "$fn"
 	done
 }
+
+echo $(git_get_sourced)
+
+git_get_cleanup
