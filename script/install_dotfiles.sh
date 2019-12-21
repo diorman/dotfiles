@@ -1,7 +1,8 @@
 #!/bin/sh
 #
 # bootstrap installs things.
-export DOTFILES=$(pwd -P)
+cd "$(dirname "$0")/.."
+DOTFILES=$(pwd -P)
 
 set -e
 
@@ -53,8 +54,8 @@ install_dotfiles() {
 }
 
 find_zsh() {
-	if which zsh >/dev/null 2>&1 && grep "$(which zsh)" /etc/shells >/dev/null; then
-		which zsh
+	if command -v zsh >/dev/null 2>&1 && grep "$(command -v zsh)" /etc/shells >/dev/null; then
+		command -v zsh
 	else
 		echo "/bin/zsh"
 	fi
@@ -71,7 +72,8 @@ run_installers() {
 
 set_shell() {
 	zsh="$(find_zsh)"
-	which chsh >/dev/null 2>&1 &&
+	test "$(expr "$SHELL" : '.*/\(.*\)')" != "zsh" &&
+		command -v chsh >/dev/null 2>&1 &&
 		chsh -s "$zsh" &&
 		success "set $("$zsh" --version) at $zsh as default shell"
 }
