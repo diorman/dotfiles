@@ -1,5 +1,0 @@
-#!/bin/sh
-
-source $DOTFILES/git/git-get.sh
-
-git_get_main "$@"
