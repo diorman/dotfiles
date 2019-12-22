@@ -20,29 +20,29 @@ if test -f $HOME/.localrc; then
 fi
 
 install_brew() {
-	info "checking homebrew installation..."
+	log_info "checking homebrew installation..."
 	if ! command -v brew > /dev/null; then
-		info "installing brew..."
+		log_info "installing brew..."
 		/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	fi
-	success "homebrew"
+	log_success "homebrew"
 }
 
 install_brew_bundle() {
-	info "running homebrew bundle..."
+	log_info "running homebrew bundle..."
 	brew bundle
-	success "homebrew bundle"
+	log_success "homebrew bundle"
 }
 
 install_ruby() {
 	for ruby_version in ${RUBY_VERSIONS[@]}; do
-		info "checking ruby $ruby_version installation..."
+		log_info "checking ruby $ruby_version installation..."
 
 		if ! rbenv versions | grep $ruby_version > /dev/null; then
-			info "installing ruby $ruby_version..."
+			log_info "installing ruby $ruby_version..."
 			rbenv install $ruby_version
 		fi
-		success "ruby $ruby_version"
+		log_success "ruby $ruby_version"
 	done
 
 	rbenv global $RUBY_DEFAULT_VERSION
@@ -52,14 +52,14 @@ install_java() {
 	for index in ${!JAVA_JENV_VERSIONS[@]}; do
 		local java_version="${JAVA_JENV_VERSIONS[$index]}"
 		local java_path="/Library/Java/JavaVirtualMachines/${JAVA_SDK_PATHS[$index]}/Contents/Home"
-		info "checking java $java_version installation..."
+		log_info "checking java $java_version installation..."
 
 		if ! jenv versions | grep $java_version > /dev/null; then
 			echo "adding $java_version to jenv..."
 			jenv add /Library/Java/JavaVirtualMachines/${JAVA_SDK_PATHS[$index]}/Contents/Home
 		fi
 
-		success "jvm $java_version"
+		log_success "jvm $java_version"
 	done
 
 	jenv global $JAVA_DEFAULT_VERSION
@@ -67,55 +67,55 @@ install_java() {
 
 install_clojure_lein() {
 	if ! test -f $HOME/bin/lein; then
-		info "installing lein"
+		log_info "installing lein"
 		mkdir -p $HOME/bin
 		curl -sL https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein -o $HOME/bin/lein
 		chmod +x $HOME/bin/lein
 	else
-		info "upgrading lein"
+		log_info "upgrading lein"
 		yes | lein upgrade
 	fi
 
-	success "lein"
+	log_success "lein"
 }
 
 install_node() {
-	info "checking nvm installation..."
+	log_info "checking nvm installation..."
 
 	if ! test -d $HOME/.nvm; then
-		info "installing nvm"
+		log_info "installing nvm"
 		git clone https://github.com/creationix/nvm.git $HOME/.nvm
 	fi
 
-	success "nvm installed"
+	log_success "nvm installed"
 
-	info "checking nvm latest version..."
+	log_info "checking nvm latest version..."
 	cd $HOME/.nvm \
 		&& git checkout -q master \
 		&& git pull -q \
 		&& git checkout -q $(git describe --tags) \
-		&& success "using nvm version $(git describe --tags)" \
+		&& log_success "using nvm version $(git describe --tags)" \
 
 	. "$HOME/.nvm/nvm.sh"
 
 	for node_version in ${NODE_VERSIONS[@]}; do
-		info "checking node $node_version installation..."
+		log_info "checking node $node_version installation..."
 
 		if ! nvm ls $node_version > /dev/null; then
-			info "installing node $node_version..."
+			log_info "installing node $node_version..."
 			nvm install $node_version
 		fi
 
 		nvm install-latest-npm
 
-		success "node $node_version"
+		log_success "node $node_version"
 	done
 
 	nvm alias default $NODE_DEFAULT_VERSION
 }
 
 install_vscode_extensions() {
-	info "installing vscode extensions..."
+	log_info "installing vscode extensions..."
 
 	extensions=()
 
@@ -138,7 +138,7 @@ install_vscode_extensions() {
 		code --install-extension "$extension" || true
 	done
 
-	success "vscode extensions"
+	log_success "vscode extensions"
 }
 
 case "$1" in
