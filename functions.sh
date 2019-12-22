@@ -18,7 +18,7 @@ log_fail() {
 
 link_file() {
 	if [ -e "$2" ]; then
-		if [ "$(readlink "$2")" = "$1" ]; then
+		if [ "$(readlink "$2")" == "$1" ]; then
 			log_success "skipped $1"
 			return 0
 		else
