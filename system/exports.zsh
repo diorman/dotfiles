@@ -2,8 +2,6 @@
 
 export CDPATH=$HOME/Projects/src
 export PATH="$DOTFILES/bin:$HOME/bin:$PATH"
-export EDITOR='vim'
-export VEDITOR='code'
 
 # GNU utilities
 for gnupath in "coreutils/libexec/gnubin" \
