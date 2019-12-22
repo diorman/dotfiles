@@ -11,7 +11,7 @@ config_files=($DOTFILES/*/*.zsh)
 
 # load exports
 for file in ${(M)config_files:#*/exports.zsh}; do
-  source "$file"
+	source "$file"
 done
 
 # load antibody plugins
@@ -19,18 +19,18 @@ source ~/.zsh_plugins.sh
 
 # load init files
 for file in ${(M)config_files:#*/init.zsh}; do
-  source "$file"
+	source "$file"
 done
 
 autoload -Uz compinit
 for dump in ~/.zcompdump(N.mh+24); do
-  compinit
+	compinit
 done
 compinit -C
 
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}; do
-  source "$file"
+	source "$file"
 done
 
 unset config_files
