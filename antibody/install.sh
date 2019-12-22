@@ -2,7 +2,7 @@
 
 source $DOTFILES/functions.sh
 
-if command -v antibody > /dev/null; then
+if ! command -v antibody > /dev/null; then
 	log_fail "antibody plugin manager not installed"
 	exit 1
 fi
