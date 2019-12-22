@@ -65,7 +65,7 @@ install_java() {
 	jenv global $JAVA_DEFAULT_VERSION
 }
 
-install_clojure() {
+install_clojure_lein() {
 	if ! test -f $HOME/bin/lein; then
 		info "installing lein"
 		mkdir -p $HOME/bin
@@ -155,7 +155,7 @@ case "$1" in
 		install_java
 		;;
 	clojure)
-		install_clojure
+		install_clojure_lein
 		;;
 	node)
 		install_node
@@ -168,7 +168,7 @@ case "$1" in
 		install_brew_bundle
 		install_ruby
 		install_java
-		install_clojure
+		install_clojure_lein
 		install_node
 		install_vscode_extensions
 esac
