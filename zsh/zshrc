@@ -2,24 +2,23 @@
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES="$(dirname "$(dirname "$(readlink ~/.zshrc)"../)")"
 
-# your default editor
-export EDITOR='vim'
-export VEDITOR='code'
+# Load custom settings and secrets
+test -f $HOME/.localrc && source $HOME/.localrc
 
 # all of our zsh files
 typeset -U config_files
 config_files=($DOTFILES/*/*.zsh)
 
-# load the path files
-for file in ${(M)config_files:#*/path.zsh}; do
+# load exports
+for file in ${(M)config_files:#*/exports.zsh}; do
   source "$file"
 done
 
 # load antibody plugins
 source ~/.zsh_plugins.sh
 
-# load everything but the path and completion files
-for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}; do
+# load init files
+for file in ${(M)config_files:#*/init.zsh}; do
   source "$file"
 done
 
@@ -29,15 +28,9 @@ for dump in ~/.zcompdump(N.mh+24); do
 done
 compinit -C
 
-
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}; do
   source "$file"
 done
 
-unset config_files updated_at
-
-# Secret stuff
-if test -f $HOME/.localrc; then
-	source $HOME/.localrc
-fi
+unset config_files
