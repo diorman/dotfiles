@@ -3,9 +3,9 @@
 if test -d $HOME/.nvm; then
 
 	__nvm_init() {
-		export NVM_DIR=$HOME/.nvm
-		[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-		[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+		local nvm_dir=$HOME/.nvm
+		[ -s "$nvm_dir/nvm.sh" ] && \. "$nvm_dir/nvm.sh"  # This loads nvm
+		[ -s "$nvm_dir/bash_completion" ] && \. "$nvm_dir/bash_completion"  # This loads nvm bash_completion
 
 		unset -f nvm
 		unset -f node
