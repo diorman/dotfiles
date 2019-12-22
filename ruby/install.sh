@@ -2,4 +2,4 @@
 
 source $DOTFILES/functions.sh
 
-link "$DOTFILES/ruby/gemrc" "$HOME/.gemrc"
+link_file "$DOTFILES/ruby/gemrc" "$HOME/.gemrc"
