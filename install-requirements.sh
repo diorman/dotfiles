@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")"
 DOTFILES=$(pwd -P)
 
 RUBY_VERSIONS=(2.4.1 2.6.5)
@@ -13,7 +13,7 @@ JAVA_DEFAULT_VERSION=1.8
 NODE_VERSIONS=(10.18.0 12.14.0)
 NODE_DEFAULT_VERSION=12.14.0
 
-source $DOTFILES/installer/log.inc.sh
+source $DOTFILES/functions.sh
 
 if test -f $HOME/.localrc; then
 	source $HOME/.localrc
@@ -114,6 +114,33 @@ install_node() {
 	nvm alias default $NODE_DEFAULT_VERSION
 }
 
+install_vscode_extensions() {
+	info "installing vscode extensions..."
+
+	extensions=()
+
+	# Adds syntax highlighting, commands, hover tips, and linting for Dockerfile and docker-compose files.
+	extensions+=(ms-azuretools.vscode-docker)
+
+	# Integrates ESLint JavaScript into VS Code.
+	extensions+=(dbaeumer.vscode-eslint)
+
+	# Pull Request Provider for GitHub
+	extensions+=(github.vscode-pull-request-github)
+
+	# Rich Go language support for Visual Studio Code
+	extensions+=(ms-vscode.go)
+
+	# Code formatter using prettier
+	extensions+=(esbenp.prettier-vscode)
+
+	for extension in ${extensions[@]}; do
+		code --install-extension "$extension" || true
+	done
+
+	success "vscode extensions"
+}
+
 case "$1" in
 	brew)
 		install_brew
@@ -133,6 +160,9 @@ case "$1" in
 	node)
 		install_node
 		;;
+	vscode)
+		install_vscode_extensions
+		;;
 	*)
 		install_brew
 		install_brew_bundle
@@ -140,4 +170,5 @@ case "$1" in
 		install_java
 		install_clojure
 		install_node
+		install_vscode_extensions
 esac
