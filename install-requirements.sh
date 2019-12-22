@@ -115,10 +115,10 @@ install_node() {
 }
 
 case "$1" in
-	homebrew)
+	brew)
 		install_brew
 		;;
-	homebrew-bundle)
+	brew-bundle)
 		install_brew_bundle
 		;;
 	ruby)
