@@ -1,0 +1,22 @@
+#!/bin/sh
+
+previous="$(networksetup -getdnsservers Wi-Fi)"
+
+case "$1" in
+	local)
+		networksetup -setdnsservers Wi-Fi 127.0.0.1
+		;;
+	none)
+		networksetup -setdnsservers Wi-Fi empty
+		;;
+	*)
+		# Google's
+		networksetup -setdnsservers Wi-Fi 8.8.8.8 8.8.4.4
+esac
+
+echo "Wi-Fi DNS servers set to:"
+echo "$(networksetup -getdnsservers Wi-Fi)"
+echo ""
+echo "Previous Wi-Fi DNS servers:"
+echo $previous
+
