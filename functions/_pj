@@ -1,0 +1,10 @@
+#compdef pj
+
+local default_host=${PJ_DEFAULT_HOST:-"github.com"}
+
+[[ -n $PJ_DEFAULT_ORG ]] && \
+	_files -W "$PJ_PATH/$default_host/$PJ_DEFAULT_ORG" -/
+
+_files -W "$PJ_PATH/$default_host" -/
+
+_files -W "$PJ_PATH" -/

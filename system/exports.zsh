@@ -2,6 +2,7 @@
 
 export CDPATH=$HOME/Projects/src
 export PATH="$DOTFILES/bin:$HOME/bin:$PATH"
+export PJ_PATH="$HOME/Projects/src"
 
 # GNU utilities
 for gnupath in "coreutils/libexec/gnubin" \
