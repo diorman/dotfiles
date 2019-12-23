@@ -1,13 +1,13 @@
 #!/bin/sh
 
-source $DOTFILES/functions.sh
+source $DOTFILES/scripts/install-utils.sh
 
 ###################################################
 ## VALIDATIONS
 ###################################################
 
 if [[ -z $GIT_CUSTOM_CONFIG ]]; then
-	log_fail "GIT_CUSTOM_CONFIG is not set (eg ~/.localrc). Example:"
+	log_fail "GIT_CUSTOM_CONFIG is not set (eg ~/.zshrc.local). Example:"
 	echo ""
 cat << EOF
 export GIT_CUSTOM_CONFIG=\$(jq -n \\

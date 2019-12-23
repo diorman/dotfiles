@@ -1,6 +1,6 @@
 #!/bin/sh
 
-source $DOTFILES/functions.sh
+source $DOTFILES/scripts/install-utils.sh
 
 if ! command -v code > /dev/null; then
 	echo 'skipping vscode setup'

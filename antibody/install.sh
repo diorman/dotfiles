@@ -1,6 +1,6 @@
 #!/bin/sh
 
-source $DOTFILES/functions.sh
+source $DOTFILES/scripts/install-utils.sh
 
 if ! command -v antibody > /dev/null; then
 	log_fail "antibody plugin manager not installed"

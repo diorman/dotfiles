@@ -2,10 +2,10 @@
 
 set -e
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/.."
 DOTFILES=$(pwd -P)
 
-source $DOTFILES/functions.sh
+source $DOTFILES/scripts/install-utils.sh
 
 topic="$1"
 

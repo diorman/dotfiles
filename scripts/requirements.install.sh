@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/.."
 DOTFILES=$(pwd -P)
 
 RUBY_VERSIONS=(2.4.1 2.6.5)
@@ -13,7 +13,7 @@ JAVA_DEFAULT_VERSION=1.8
 NODE_VERSIONS=(10.18.0 12.14.0)
 NODE_DEFAULT_VERSION=12.14.0
 
-source $DOTFILES/functions.sh
+source $DOTFILES/scripts/install-utils.sh
 
 test -f $HOME/.zshrc.local && source $HOME/.zshrc.local
 
