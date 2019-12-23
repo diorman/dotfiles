@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 if command -v jenv > /dev/null; then
 	eval "$(jenv init -)"

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 if command -v rbenv > /dev/null; then
 	eval "$(rbenv init -)"
