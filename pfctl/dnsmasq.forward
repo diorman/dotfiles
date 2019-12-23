@@ -1,0 +1,1 @@
+rdr pass inet proto { tcp, udp }  from any to 127.0.0.1 port 53 -> 127.0.0.1 port 5353
