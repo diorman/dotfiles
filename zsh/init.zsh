@@ -4,49 +4,85 @@
 ## FPATH
 ###################################################
 
-fpath=($DOTFILES/functions $fpath)
+if [[ "$(ls -A $DOTFILES/functions)" ]]; then
+	fpath=("$DOTFILES/functions" $fpath)
+	autoload -U "$DOTFILES"/functions/*(:t)
+fi
 
-# add each topic folder to fpath so that they can add functions and completion scripts
-for topic_folder in $DOTFILES/*; do
-	if [ -d "$topic_folder" ]; then
-		fpath=($topic_folder $fpath)
-	fi
-done
+typeset -U fpath
 
 ###################################################
-## CONFIG
+## COLORS
 ###################################################
 
-HISTFILE=~/.zsh_history
+# makes color constants available
+autoload -U colors
+colors
+
+###################################################
+## HISTORY
+###################################################
+
+HISTFILE=~/.zhistory
 HISTSIZE=10000
 SAVEHIST=10000
 
-# don't nice background tasks
-setopt NO_BG_NICE
-setopt NO_HUP
-setopt NO_LIST_BEEP
-# allow functions to have local options
-setopt LOCAL_OPTIONS
-# allow functions to have local traps
-setopt LOCAL_TRAPS
-# share history between sessions ???
-setopt SHARE_HISTORY
-# add timestamps to history
+###################################################
+## KEYBINDINGS
+###################################################
+
+# give us access to ^Q
+stty -ixon
+
+# vi mode
+bindkey -v
+bindkey "^F" vi-cmd-mode
+
+# handy keybindings
+bindkey "^A" beginning-of-line
+bindkey "^E" end-of-line
+bindkey "^K" kill-line
+bindkey "^R" history-incremental-search-backward
+bindkey "^P" history-search-backward
+bindkey "^Y" accept-and-hold
+bindkey "^N" insert-last-word
+bindkey "^Q" push-line-or-edit
+bindkey -s "^T" "^[Isudo ^[A" # "t" for "toughguy"
+
+###################################################
+## OPTIONS
+###################################################
+
 setopt EXTENDED_HISTORY
-setopt PROMPT_SUBST
-setopt CORRECT
-setopt COMPLETE_IN_WORD
-# adds history
-setopt APPEND_HISTORY
-# adds history incrementally and share it across sessions
-setopt INC_APPEND_HISTORY
-setopt SHARE_HISTORY
-# don't record dupes in history
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
 setopt HIST_VERIFY
-setopt HIST_EXPIRE_DUPS_FIRST
-# dont ask for confirmation in rm globs*
-setopt RM_STAR_SILENT
+setopt INC_APPEND_HISTORY
+
+setopt EXTENDED_GLOB
+setopt NO_BEEP
+setopt NO_LIST_BEEP
+setopt PROMPT_SUBST
+unsetopt NOMATCH
+
+###################################################
+## COMPLETION
+###################################################
+
+# forces zsh to realize new commands
+zstyle ':completion:*' completer _oldlist _expand _complete _match _ignored _approximate
+
+# matches case insensitive for lowercase
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# pasting with tabs doesn't perform completion
+zstyle ':completion:*' insert-tab pending
+
+# rehash if command not found (possibly recently installed)
+zstyle ':completion:*' rehash true
+
+# menu if nb items > 2
+zstyle ':completion:*' menu select=2
+
+zstyle ":completion:*:descriptions" format "%B%d%b"
