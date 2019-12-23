@@ -28,7 +28,7 @@ install_brew() {
 
 install_brew_bundle() {
 	log_info "running homebrew bundle..."
-	brew bundle
+	brew bundle --file=$DOTFILES/Brewfile
 	log_success "homebrew bundle"
 }
 
