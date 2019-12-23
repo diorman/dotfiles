@@ -1,10 +1,21 @@
 #!/bin/zsh
-export LSCOLORS='exfxcxdxbxegedabagacad'
-export CLICOLOR=true
+
+###################################################
+## FPATH
+###################################################
 
 fpath=($DOTFILES/functions $fpath)
 
-# autoload -U "$DOTFILES"/functions/*(:t)
+# add each topic folder to fpath so that they can add functions and completion scripts
+for topic_folder in $DOTFILES/*; do
+	if [ -d "$topic_folder" ]; then
+		fpath=($topic_folder $fpath)
+	fi
+done
+
+###################################################
+## CONFIG
+###################################################
 
 HISTFILE=~/.zsh_history
 HISTSIZE=10000

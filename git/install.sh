@@ -1,7 +1,13 @@
 #!/bin/sh
 
+source $DOTFILES/scripts/install-utils.sh
+
+###################################################
+## VALIDATIONS
+###################################################
+
 if [[ -z $GIT_CUSTOM_CONFIG ]]; then
-	echo "GIT_CUSTOM_CONFIG is not set (eg ~/.localrc). Example:"
+	log_fail "GIT_CUSTOM_CONFIG is not set (eg ~/.zshrc.local). Example:"
 	echo ""
 cat << EOF
 export GIT_CUSTOM_CONFIG=\$(jq -n \\
@@ -20,9 +26,20 @@ EOF
 fi
 
 if ! jq -e . &>/dev/null <<< "$GIT_CUSTOM_CONFIG"; then
-	echo "GIT_CUSTOM_CONFIG contains invalid JSON"
+	log_fail "GIT_CUSTOM_CONFIG contains invalid JSON"
 	exit 1
 fi
+
+###################################################
+## LINK FILES
+###################################################
+
+link_file "$DOTFILES/git/gitconfig.dotfiles" "$HOME/.gitconfig.dotfiles"
+link_file "$DOTFILES/git/gitconfig.dotfiles" "$HOME/.gitconfig.dotfiles"
+
+###################################################
+## GIT CONFIG
+###################################################
 
 git config --global user.name "Diorman Colmenares"
 git config --global include.path $HOME/.gitconfig.dotfiles
