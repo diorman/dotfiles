@@ -15,9 +15,7 @@ NODE_DEFAULT_VERSION=12.14.0
 
 source $DOTFILES/functions.sh
 
-if test -f $HOME/.localrc; then
-	source $HOME/.localrc
-fi
+test -f $HOME/.zshrc.local && source $HOME/.zshrc.local
 
 install_brew() {
 	log_info "checking homebrew installation..."

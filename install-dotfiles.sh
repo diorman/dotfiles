@@ -7,10 +7,6 @@ DOTFILES=$(pwd -P)
 
 source $DOTFILES/functions.sh
 
-if test -f $HOME/.localrc; then
-	source $HOME/.localrc
-fi
-
 topic="$1"
 
 # install specific topic
@@ -24,6 +20,8 @@ if [[ -n "$topic" ]]; then
 	installer="$DOTFILES/$topic/install.sh"
 
 	test -f "$exports" && source "$exports"
+
+	test -f $HOME/.zshrc.local && source $HOME/.zshrc.local
 
 	if test -f "$installer"; then
 		log_init "running $topic installer..."
@@ -40,6 +38,8 @@ fi
 for file in $DOTFILES/*/exports.zsh; do
 	source "$file"
 done
+
+test -f $HOME/.zshrc.local && source $HOME/.zshrc.local
 
 # exec installers
 for installer in $DOTFILES/*/install.sh; do
