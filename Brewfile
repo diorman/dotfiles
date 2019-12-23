@@ -68,6 +68,8 @@ brew "maven"
 brew "minikube", link: false
 # Library for a binary-based efficient data interchange format
 brew "msgpack"
+# Pinentry for GPG on Mac
+brew "pinentry-mac"
 # Install various Ruby versions and implementations
 brew "ruby-build"
 # Ruby version manager
