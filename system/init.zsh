@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 # reload terminal
 alias reload!='exec "$SHELL" -l'

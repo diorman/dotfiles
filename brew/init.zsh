@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 brew() {
 	case "$1" in

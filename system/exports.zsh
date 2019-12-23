@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 export CDPATH=$HOME/Projects/src
 export PATH="$DOTFILES/bin:$HOME/bin:$PATH"

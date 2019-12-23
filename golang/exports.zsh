@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 export GOPATH=$HOME/Projects
 export PATH=$PATH:$GOPATH/bin
