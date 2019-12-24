@@ -2,7 +2,9 @@
 
 cd "$(dirname "$0")"
 
-arg="$1"
+arg0="$1"
+args="$@"
+shift
 
 confirm() {
 	while true; do
@@ -15,12 +17,12 @@ confirm() {
 done
 }
 
-if [[ -z "$arg" ]]; then
+if [[ -z "$arg0" ]]; then
 	confirm "requirements and dotfiles" &&
 		./scripts/dotfiles.install.sh &&
 		./scripts/requirements.install.sh
-elif [[ "$arg" == "dotfiles" ]]; then
-	confirm "$arg" && ./scripts/dotfiles.install.sh
-elif [[ "$arg" == "requirements" ]]; then
-	confirm "$arg" && ./scripts/requirements.install.sh
+elif [[ "$arg0" == "dotfiles" ]]; then
+	confirm "$args" && ./scripts/dotfiles.install.sh "$@"
+elif [[ "$arg0" == "requirements" ]]; then
+	confirm "$args" && ./scripts/requirements.install.sh "$@"
 fi
