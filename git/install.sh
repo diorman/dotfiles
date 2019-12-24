@@ -35,7 +35,7 @@ fi
 ###################################################
 
 link_file "$DOTFILES/git/gitconfig.dotfiles" "$HOME/.gitconfig.dotfiles"
-link_file "$DOTFILES/git/gitconfig.dotfiles" "$HOME/.gitconfig.dotfiles"
+link_file "$DOTFILES/git/gitignore_global" "$HOME/.gitignore_global"
 
 ###################################################
 ## GIT CONFIG
