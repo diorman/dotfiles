@@ -10,10 +10,8 @@ tap "loadimpact/k6"
 tap "unbounce/taps"
 # Use AWS IAM credentials to authenticate to Kubernetes
 brew "aws-iam-authenticator"
-# Command-line interface for SQLite
-brew "sqlite"
-# General-purpose data compression with high compression ratio
-brew "xz"
+# Interpreted, interactive, object-oriented programming language
+brew "python"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Simple command-line tool to read AWS CloudWatch logs
@@ -46,6 +44,8 @@ brew "gnu-tar"
 brew "gnutls"
 # GNU Pretty Good Privacy (PGP) package
 brew "gnupg"
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
 # GNU grep, egrep and fgrep
 brew "grep"
 # Calculate various network masks, etc. from a given IP address
@@ -65,7 +65,7 @@ brew "make"
 # Java-based project management
 brew "maven"
 # Run a Kubernetes cluster locally
-brew "minikube", link: false
+brew "minikube"
 # Library for a binary-based efficient data interchange format
 brew "msgpack"
 # Pinentry for GPG on Mac
@@ -113,3 +113,4 @@ cask "slack"
 cask "spotify"
 cask "visual-studio-code"
 cask "whatsapp"
+cask "zoomus"
