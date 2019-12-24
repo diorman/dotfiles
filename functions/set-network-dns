@@ -1,6 +1,7 @@
 #!/bin/sh
 
-previous="$(networksetup -getdnsservers Wi-Fi)"
+echo "current Wi-Fi DNS servers:"
+echo "$(networksetup -getdnsservers Wi-Fi)"
 
 case "$1" in
 	local)
@@ -14,9 +15,7 @@ case "$1" in
 		networksetup -setdnsservers Wi-Fi 8.8.8.8 8.8.4.4
 esac
 
-echo "Wi-Fi DNS servers set to:"
-echo "$(networksetup -getdnsservers Wi-Fi)"
 echo ""
-echo "Previous Wi-Fi DNS servers:"
-echo $previous
+echo "Wi-Fi DNS servers now set to:"
+echo "$(networksetup -getdnsservers Wi-Fi)"
 
