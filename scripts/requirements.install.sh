@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 cd "$(dirname "$0")/.."
 DOTFILES=$(pwd -P)
 
@@ -132,11 +134,26 @@ install_vscode_extensions() {
 	# Code formatter using prettier
 	extensions+=(esbenp.prettier-vscode)
 
+	# Rust language support
+	extensions+=(rust-lang.rust)
+
 	for extension in ${extensions[@]}; do
 		code --install-extension "$extension" || true
 	done
 
 	log_success "vscode extensions"
+}
+
+install_rust() {
+	if command -v rustup > /dev/null; then
+		log_info "updating rustup..."
+		rustup update
+	else
+		log_info "installing rustup..."
+		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	fi
+
+	log_success "rustup"
 }
 
 case "$1" in
@@ -161,6 +178,9 @@ case "$1" in
 	vscode)
 		install_vscode_extensions
 		;;
+	rust)
+		install_rust
+		;;
 	*)
 		install_brew
 		install_brew_bundle
@@ -168,5 +188,6 @@ case "$1" in
 		install_java
 		install_clojure_lein
 		install_node
+		install_rust
 		install_vscode_extensions
 esac
