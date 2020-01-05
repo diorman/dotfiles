@@ -469,6 +469,13 @@ defaults write com.apple.Terminal ShowLineMarks -int 0
 # Don’t display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
+# Iterm2 hotkey: alt + space
+defaults write com.googlecode.iterm2 Hotkey -bool true
+defaults write com.googlecode.iterm2 HotkeyChar -int 32
+defaults write com.googlecode.iterm2 HotkeyCode -int 49
+defaults write com.googlecode.iterm2 HotkeyMigratedFromSingleToMulti -bool true
+defaults write com.googlecode.iterm2 HotkeyModifiers -int 524576
+
 ###############################################################################
 # Activity Monitor                                                            #
 ###############################################################################
