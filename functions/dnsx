@@ -3,6 +3,10 @@
 echo "current Wi-Fi DNS servers:"
 echo "$(networksetup -getdnsservers Wi-Fi)"
 
+if [ -z $1 ]; then
+	return 0
+fi
+
 case "$1" in
 	local)
 		networksetup -setdnsservers Wi-Fi 127.0.0.1
@@ -10,9 +14,13 @@ case "$1" in
 	none)
 		networksetup -setdnsservers Wi-Fi empty
 		;;
-	*)
-		# Google's
+	google)
 		networksetup -setdnsservers Wi-Fi 8.8.8.8 8.8.4.4
+		;;
+	*)
+		echo ""
+		echo "error: unknown parameter"
+		return 1
 esac
 
 echo ""
