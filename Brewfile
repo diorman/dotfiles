@@ -26,6 +26,8 @@ brew "curl"
 brew "dnsmasq"
 # Collection of GNU find, xargs, and locate
 brew "findutils"
+# Command-line fuzzy finder written in Go
+brew "fzf"
 # GNU awk utility
 brew "gawk"
 # Distributed revision control system
