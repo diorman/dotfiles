@@ -3,7 +3,7 @@
 set -e
 
 cd "$(dirname "$0")/.."
-DOTFILES=$(pwd -P)
+export DOTFILES=$(pwd -P)
 
 source $DOTFILES/scripts/install-utils.sh
 
