@@ -1,8 +1,8 @@
 #!/bin/zsh
 
-export CDPATH=$HOME/Projects/src
+export CDPATH=$HOME/Code/src
 export PATH="$DOTFILES/bin:$HOME/bin:$PATH"
-export PJ_PATH="$HOME/Projects/src"
+export PJ_PATH="$HOME/Code/src"
 
 # GNU utilities
 for gnupath in "coreutils/libexec/gnubin" \
