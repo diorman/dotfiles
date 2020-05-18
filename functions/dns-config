@@ -1,0 +1,29 @@
+#!/bin/bash
+
+echo "current Wi-Fi DNS servers:"
+networksetup -getdnsservers "Wi-Fi"
+
+if [ -z "$1" ]; then
+  return 0
+fi
+
+case "$1" in
+  local)
+    networksetup -setdnsservers Wi-Fi 127.0.0.1
+    ;;
+  none)
+    networksetup -setdnsservers Wi-Fi empty
+    ;;
+  google)
+    networksetup -setdnsservers Wi-Fi 8.8.8.8 8.8.4.4
+    ;;
+  *)
+    echo ""
+    echo "error: unknown parameter"
+    return 1
+esac
+
+echo ""
+echo "Wi-Fi DNS servers now set to:"
+networksetup -getdnsservers "Wi-Fi"
+

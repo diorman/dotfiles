@@ -5,8 +5,8 @@
 ###################################################
 
 if [[ "$(ls -A $DOTFILES/functions)" ]]; then
-	fpath=("$DOTFILES/functions" $fpath)
-	autoload -U "$DOTFILES"/functions/*(:t)
+  fpath=("$DOTFILES/functions" $fpath)
+  autoload -U "$DOTFILES"/functions/*(:t)
 fi
 
 typeset -U fpath

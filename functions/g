@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
 if [[ $# -gt 0 ]]; then
-	git "$@"
+  git "$@"
 else
-	git status
+  git status
 fi
