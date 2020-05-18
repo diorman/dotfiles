@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 case "$1" in
 rm)
-	shift
-	command brew rmtree "$@"
-	;;
+  shift
+  command brew rmtree "$@"
+  ;;
 *)
-	command brew "$@"
-	;;
+  command brew "$@"
+  ;;
 esac

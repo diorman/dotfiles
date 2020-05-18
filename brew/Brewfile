@@ -10,8 +10,6 @@ tap "loadimpact/k6"
 tap "unbounce/taps"
 # Use AWS IAM credentials to authenticate to Kubernetes
 brew "aws-iam-authenticator"
-# Interpreted, interactive, object-oriented programming language
-brew "python"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Simple command-line tool to read AWS CloudWatch logs
@@ -72,10 +70,14 @@ brew "minikube"
 brew "msgpack"
 # Pinentry for GPG on Mac
 brew "pinentry-mac"
+# Interpreted, interactive, object-oriented programming language
+brew "python"
 # Install various Ruby versions and implementations
 brew "ruby-build"
 # Ruby version manager
 brew "rbenv"
+# Static analysis and lint tool, for (ba)sh scripts
+brew "shellcheck"
 # Instant terminal sharing
 brew "tmate"
 # Terminal multiplexer
@@ -113,6 +115,8 @@ cask "postman"
 cask "sequel-pro"
 cask "slack"
 cask "spotify"
+cask "stoplight-studio"
 cask "visual-studio-code"
+cask "vlc"
 cask "whatsapp"
 cask "zoomus"
