@@ -40,4 +40,10 @@ install-brew-bundle:
 
 .PHONY: brew-bundle-dump
 brew-bundle-dump:
-	brew bundle dump --force --describe --no-restart --file="$(DOTFILES)/brew/Brewfile"
+	brew bundle dump --force --describe --no-restart --file "$(DOTFILES)/brew/Brewfile"
+
+# Only checks what packages would be removed.
+# To remove the packages manually run the command passing the --force flag
+.PHONY: brew-bundle-cleanup
+brew-bundle-cleanup:
+	brew bundle cleanup --file "$(DOTFILES)/brew/Brewfile"
