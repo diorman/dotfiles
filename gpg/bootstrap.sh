@@ -1,6 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
-source $DOTFILES/scripts/install-utils.sh
+set -e
+
+# shellcheck disable=SC1090
+source "$DOTFILES/utils.sh"
 
 mkdir -p "$HOME/.gnupg"
 link_file "$DOTFILES/gpg/gpg.conf" "$HOME/.gnupg/gpg.conf"
