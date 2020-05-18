@@ -6,6 +6,8 @@ set -e
 source "$DOTFILES/utils.sh"
 
 run_bundle() {
+  log_info "brew cleanup..."
+  brew cleanup
   log_info "running homebrew bundle..."
   brew bundle --file="$DOTFILES/brew/Brewfile"
 }
