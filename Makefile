@@ -37,3 +37,7 @@ install-%:
 .PHONY: install-brew-bundle
 install-brew-bundle:
 	@$(call RUN_SCRIPT,install,brew,--run-bundle)
+
+.PHONY: brew-bundle-dump
+brew-bundle-dump:
+	brew bundle dump --force --describe --no-restart --file="$(DOTFILES)/brew/Brewfile"

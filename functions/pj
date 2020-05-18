@@ -1,101 +1,104 @@
-#!/bin/sh
+#!/bin/bash
 
 _pj_log_warn() {
-	>&2 echo "WARN: $1"
+  >&2 echo "WARN: $1"
 }
 
 _pj_log_error() {
-	>&2 echo "ERROR: $1"
+  >&2 echo "ERROR: $1"
 }
 
 _pj_log_info() {
-	>&2 echo "INFO: $1"
+  >&2 echo "INFO: $1"
 }
 
 _pj_count_url_parts() {
-	local slashes="${1//[^\/]}"
-	echo $((${#slashes} + 1))
+  local slashes="${1//[^\/]}"
+  echo $((${#slashes} + 1))
 }
 
 _pj_to_canonical_url() {
-	local repo="$1"
-	repo=${repo#"https://"}
-	repo=${repo#"http://"}
-	repo=${repo#"git@"}
-	repo=${repo%".git"}
-	repo=${repo/":"/"/"}
+  local repo="$1"
+  repo=${repo#"https://"}
+  repo=${repo#"http://"}
+  repo=${repo#"git@"}
+  repo=${repo%".git"}
+  repo=${repo/":"/"/"}
 
-	local default_host=${PJ_DEFAULT_HOST:-"github.com"}
+  local default_host=${PJ_DEFAULT_HOST:-"github.com"}
 
-	if [[ $(_pj_count_url_parts $repo) -eq 1 && -n $PJ_DEFAULT_ORG ]]; then
-		repo="$PJ_DEFAULT_ORG/$repo"
-	fi
+  if [[ $(_pj_count_url_parts "$repo") -eq 1 && -n $PJ_DEFAULT_ORG ]]; then
+    repo="$PJ_DEFAULT_ORG/$repo"
+  fi
 
-	if [ $(_pj_count_url_parts $repo) -eq 2 ]; then
-		repo="$default_host/$repo"
-	fi
+  if [ "$(_pj_count_url_parts "$repo")" -eq 2 ]; then
+    repo="$default_host/$repo"
+  fi
 
-	echo $repo
+  echo "$repo"
 }
 
 _pj_to_git_url() {
-	echo $(echo "$1" | awk '{ split($0,a,"/"); printf "git@%s:%s/%s.git",a[1],a[2],a[3] }')
+  awk '{ split($0,a,"/"); printf "git@%s:%s/%s.git",a[1],a[2],a[3] }' <<< "$1"
 }
 
 _pj_sourced() {
-	if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
-		return 0
-	else
-		return 1
-	fi
+  if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+    return 0
+  else
+    return 1
+  fi
 }
 
 _pj_cleanup() {
-	for fn in "_pj_main" \
-		"_pj_log_error" \
-		"_pj_log_info" \
-		"_pj_count_url_parts" \
-		"_pj_to_canonical_url" \
-		"_pj_cleanup" \
-		"_pj_sourced" \
-		"_pj_to_git_url"; do
+  for fn in "_pj_main" \
+    "_pj_log_error" \
+    "_pj_log_info" \
+    "_pj_count_url_parts" \
+    "_pj_to_canonical_url" \
+    "_pj_cleanup" \
+    "_pj_sourced" \
+    "_pj_to_git_url"; do
 
-		unset -f "$fn"
-	done
+    unset -f "$fn"
+  done
 }
 
 _pj_main() {
-	if [ -z ${1} ]; then
-		_pj_log_error "repository address not given"
-		return 1
-	fi
+  if [ -z "$1" ]; then
+    _pj_log_error "repository address not given"
+    return 1
+  fi
 
-	local repo="$1"
+  local repo="$1"
+  local canonical_url
+  local clone_url
+  local dest
 
-	if [[ "$repo" == "." ]]; then
-		local canonical_url=${PWD#"$PJ_PATH/"}
-	else
-		local canonical_url=$(_pj_to_canonical_url $repo)
-	fi
+  if [[ "$repo" == "." ]]; then
+    canonical_url=${PWD#"$PJ_PATH/"}
+  else
+    canonical_url=$(_pj_to_canonical_url "$repo")
+  fi
 
-	local dest="$PJ_PATH/$canonical_url"
-	local clone_url=$(_pj_to_git_url $canonical_url)
+  dest="$PJ_PATH/$canonical_url"
+  clone_url=$(_pj_to_git_url "$canonical_url")
 
-	if ! test -d $dest; then
-		mkdir -p $dest
-		git clone $clone_url $dest || {
-			_pj_cleanup
-			rm -rf $dest
-			return 1
-		}
-	fi
+  if ! test -d "$dest"; then
+    mkdir -p "$dest"
+    git clone "$clone_url" "$dest" || {
+      _pj_cleanup
+      rm -rf "$dest"
+      return 1
+    }
+  fi
 
-	if ! test -d "$dest/.git"; then
-		_pj_log_warn "$dest is not a git repository"
-	fi
+  if ! test -d "$dest/.git"; then
+    _pj_log_warn "$dest is not a git repository"
+  fi
 
-	_pj_cleanup
-	cd $dest
+  _pj_cleanup
+  cd "$dest" || return 1
 }
 
 _pj_main "$@" || return 1
