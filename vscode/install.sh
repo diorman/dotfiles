@@ -45,3 +45,10 @@ if command -v go > /dev/null; then
   log_info "installing golang language server (gopls)..."
   GO111MODULE=on go get golang.org/x/tools/gopls@latest
 fi
+
+if command -v rustup > /dev/null; then
+  log_info "installing rust components..."
+  rustup component add rust-analysis
+  rustup component add rust-src
+  rustup component add rls
+fi
