@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+debug() {
+  [ "$DOTFILES_DEBUG" = "on" ] && echo "$1"
+}
+
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES="$(dirname "$(dirname "$(readlink ~/.zshrc)"../)")"
 
@@ -23,7 +27,11 @@ source ~/.zsh_plugins.sh
 
 # load init files
 for file in ${(M)config_files:#*/init.zsh}; do
+  start=$(date +%s%3N)
 	source "$file"
+  end=$(date +%s%3N)
+
+  debug "time loading ${file#"$DOTFILES/"}: $((end-start))ms"
 done
 
 # completion; use cache if updated within 24h
