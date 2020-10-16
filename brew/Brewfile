@@ -50,8 +50,6 @@ brew "go"
 brew "grep"
 # Calculate various network masks, etc. from a given IP address
 brew "ipcalc"
-# Manage your Java environment
-brew "jenv"
 # Regular expressions library
 brew "oniguruma"
 # Lightweight and flexible command-line JSON processor
@@ -62,8 +60,6 @@ brew "kubernetes-cli"
 brew "kubectx"
 # Utility for directing compilation
 brew "make"
-# Java-based project management
-brew "maven"
 # Run a Kubernetes cluster locally
 brew "minikube"
 # Library for a binary-based efficient data interchange format
@@ -107,8 +103,6 @@ cask "github"
 cask "google-chrome"
 cask "intellij-idea-ce"
 cask "iterm2"
-cask "java11"
-cask "java8"
 cask "ngrok"
 cask "postico"
 cask "postman"
