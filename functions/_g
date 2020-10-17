@@ -1,4 +1,0 @@
-#compdef g
-
-service=git
-_git
