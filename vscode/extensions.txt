@@ -1,0 +1,7 @@
+arrterian.nix-env-selector
+bbenoist.Nix
+dbaeumer.vscode-eslint
+esbenp.prettier-vscode
+golang.go
+ms-azuretools.vscode-docker
+timonwong.shellcheck
