@@ -1,0 +1,6 @@
+rupa/z
+zsh-users/zsh-completions
+zsh-users/zsh-autosuggestions
+
+zdharma/fast-syntax-highlighting
+zsh-users/zsh-history-substring-search
