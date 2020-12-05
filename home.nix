@@ -8,6 +8,7 @@
     ./go
     ./gpg
     ./iidy
+    ./iterm
     ./ruby
     ./tmux
     ./unbounce
