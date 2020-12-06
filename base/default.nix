@@ -41,6 +41,7 @@ in {
     kubectx # Fast way to switch between clusters and namespaces in kubectl!
     niv # Easy dependency management for Nix projects
     openssl # A cryptographic library that implements the SSL and TLS protocols
+    rustup	# The Rust toolchain installer
     shellcheck # Shell script analysis tool
     tmate # Instant Terminal Sharing
     tree # Command to produce a depth indented directory listing
