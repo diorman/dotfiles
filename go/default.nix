@@ -10,6 +10,6 @@ in {
   };
 
   home.sessionVariables = {
-    GO111MODULE = "on";
+    GO111MODULE = "auto";
   };
 }
