@@ -4,4 +4,5 @@ dbaeumer.vscode-eslint
 esbenp.prettier-vscode
 golang.go
 ms-azuretools.vscode-docker
+rust-lang.rust
 timonwong.shellcheck
