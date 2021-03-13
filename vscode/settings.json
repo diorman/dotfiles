@@ -6,7 +6,7 @@
   "editor.fontLigatures": true,
   "editor.fontSize": 16,
   "editor.minimap.enabled": false,
-  "editor.rulers": [80],
+  "editor.rulers": [100],
   "editor.scrollBeyondLastLine": false,
   "editor.renderWhitespace": "all",
   "editor.renderControlCharacters": true,
@@ -14,32 +14,32 @@
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
   "workbench.colorTheme": "Monokai Dimmed",
-  "window.zoomLevel": 0,
   "[typescript]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "go.useLanguageServer": true,
   "[go]": {
-      "editor.formatOnSave": true,
-      "editor.codeActionsOnSave": {
-          "source.organizeImports": true
-      },
-      // Optional: Disable snippets, as they conflict with completion ranking.
-      "editor.snippetSuggestions": "none"
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    },
+    // Optional: Disable snippets, as they conflict with completion ranking.
+    "editor.snippetSuggestions": "none"
   },
   "[go.mod]": {
-      "editor.formatOnSave": true,
-      "editor.codeActionsOnSave": {
-          "source.organizeImports": true
-      }
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
   },
   "gopls": {
-      // Add parameter placeholders when completing a function.
-      "usePlaceholders": true,
+    // Add parameter placeholders when completing a function.
+    "usePlaceholders": true,
 
-      // If true, enable additional analyses with staticcheck.
-      // Warning: This will significantly increase memory usage.
-      "staticcheck": false
+    // If true, enable additional analyses with staticcheck.
+    // Warning: This will significantly increase memory usage.
+    "staticcheck": false
   },
   "[rust]": {
     "editor.formatOnSave": true,
