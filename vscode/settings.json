@@ -13,7 +13,7 @@
   "editor.tabSize": 2,
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
-  "workbench.colorTheme": "Monokai Dimmed",
+  "workbench.colorTheme": "Nord",
   "[typescript]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -44,5 +44,14 @@
   "[rust]": {
     "editor.formatOnSave": true,
     "editor.tabSize": 4
+  },
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "java.project.importOnFirstTimeStartup": "automatic",
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
   }
 }
