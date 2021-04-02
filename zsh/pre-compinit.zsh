@@ -45,5 +45,8 @@ setopt NO_LIST_BEEP
 setopt PROMPT_SUBST
 unsetopt NOMATCH
 
+# disable text paste highlighting
+zle_highlight+=(paste:none)
+
 ## PLUGINS
 source "${NIX_PROFILE_DIRECTORY}/etc/antibody/plugins.sh"
