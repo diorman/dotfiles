@@ -1,41 +1,6 @@
 { ... }:
 
-let
-  m = type: list: map (item: "${type} \"${item}\"") list;
-
-  taps = [
-    "homebrew/bundle"
-    "homebrew/cask"
-    "homebrew/cask-versions"
-    "homebrew/core"
-    "homebrew/cask-fonts"
-    "homebrew/services"
-  ];
-
-  casks = [
-    "1password"
-    "adobe-acrobat-reader"
-    "docker"
-    "font-fira-code-nerd-font"
-    "firefox"
-    "gimp"
-    "github"
-    "intellij-idea-ce"
-    "iterm2"
-    "ngrok"
-    "sequel-pro"
-    "slack"
-    "spotify"
-    "stoplight-studio"
-    "visual-studio-code"
-    "vlc"
-    "whatsapp"
-    "zoomus"
-  ];
-
-  bundle = builtins.concatStringsSep "\n" ((m "tap" taps) ++ (m "cask" casks));
-
-in {
+{
   home.sessionVariables = {
     HOMEBREW_BUNDLE_NO_LOCK = "1";
     HOMEBREW_NO_ANALYTICS = "1";
@@ -45,5 +10,25 @@ in {
     export PATH="$PATH:/usr/local/sbin"
   '';
 
-  home.file.".Brewfile".text = bundle;
+  home.file.".Brewfile".text = ''
+    tap "homebrew/bundle"
+    tap "homebrew/cask"
+    tap "homebrew/cask-fonts"
+    tap "homebrew/cask-versions"
+    tap "homebrew/core"
+    brew "mas"
+    cask "docker"
+    cask "firefox"
+    cask "font-fira-code-nerd-font"
+    cask "github"
+    cask "iterm2"
+    cask "ngrok"
+    cask "spotify"
+    cask "visual-studio-code"
+    cask "zoom"
+    mas "1Password 7", id: 1333542190
+    mas "Bear", id: 1091189122
+    mas "Slack", id: 803453959
+    mas "Xcode", id: 497799835
+  '';
 }
