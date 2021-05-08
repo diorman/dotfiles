@@ -60,6 +60,7 @@ in {
       ".vscode/"
       ".envrc"
       "shell.nix"
+      ".factorypath"
     ];
   };
 }
