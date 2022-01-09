@@ -43,6 +43,7 @@ in {
       credential.helper = "osxkeychain";
       fetch.prune = true;
       format.pretty = "format:%Cred%h%Creset%C(yellow)%d%Creset %s %C(bold blue)<%an>%n%C(magenta)%ad %Cgreen(%cr)%Creset%n";
+      init.defaultBranch = "main";
       push = {
         default = "current";
         followTags = true;
