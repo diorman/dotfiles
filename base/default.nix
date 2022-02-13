@@ -15,7 +15,7 @@ in {
     # A shell extension that manages your environment
     direnv = {
       enable = true;
-      enableNixDirenvIntegration = true;
+      nix-direnv.enable = true;
     };
 
     zsh.shellAliases = shellAliases;
@@ -23,7 +23,6 @@ in {
 
   home.packages = with pkgs; [
     awscli2 # Unified tool to manage your AWS services
-    awslogs # AWS CloudWatch logs for Humans
     bash # GNU Bourne-Again Shell, the de facto standard shell on Linux
     bat # A cat clone with syntax highlighting and Git integration
     coreutils # The basic file, shell and text manipulation utilities of the GNU operating system
