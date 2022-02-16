@@ -3,16 +3,7 @@
 let
   gitConfig = (import ../settings.nix).git;
 
-  shellAliases = {
-    g = "git";
-    ga = "git add";
-    gc = "git commit";
-    gs = "git status";
-  };
-
 in {
-  programs.zsh.shellAliases = shellAliases;
-
   programs.git = {
     enable = true;
     userName = "Diorman Colmenares";

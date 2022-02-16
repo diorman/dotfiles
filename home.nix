@@ -4,6 +4,7 @@
   imports = [
     ./base
     ./brew
+    ./fish
     ./git
     ./go
     ./gpg

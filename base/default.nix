@@ -1,14 +1,15 @@
 { pkgs, ... }:
 
 let
-  shellAliases = {
-    hms = "home-manager switch";
-    kc = "kubectl";
-    ls = "ls --color=auto -F";
-    "r!" = "unset __HM_SESS_VARS_SOURCED; exec \"$SHELL\" -l";
-  };
+  settings = import ../settings.nix;
 
 in {
+  home.sessionVariables = {
+    EDITOR = "vim";
+    VEDITOR = "code";
+    PJ_PATH = settings.codeSrcPath;
+  };
+
   programs = {
     home-manager.enable = true;
 
@@ -18,7 +19,8 @@ in {
       nix-direnv.enable = true;
     };
 
-    zsh.shellAliases = shellAliases;
+    # shell prompt
+    starship.enable = true;
   };
 
   home.packages = with pkgs; [
