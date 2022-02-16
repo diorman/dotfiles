@@ -6,10 +6,6 @@
     HOMEBREW_NO_ANALYTICS = "1";
   };
 
-  programs.zsh.initExtra = ''
-    export PATH="$PATH:/usr/local/sbin"
-  '';
-
   home.file.".Brewfile".text = ''
     tap "homebrew/bundle"
     tap "homebrew/cask"

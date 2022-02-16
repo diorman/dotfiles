@@ -3,15 +3,22 @@
 let
   settings = import ../settings.nix;
   gitConfig = settings.git;
+  devEnvBin = "${settings.codeSrcPath}/github.com/unbounce/dev-env/bin";
 
 in {
   home.sessionVariables = {
     PJ_DEFAULT_ORG = "unbounce";
   };
 
-  programs.zsh.initExtra = ''
-    export PATH="$PATH:${settings.codeSrcPath}/github.com/unbounce/dev-env/bin"
-  '';
+  programs = {
+    zsh.initExtra = ''
+      export PATH="$PATH:${devEnvBin}"
+    '';
+
+    fish.shellInit = ''
+      fish_add_path ${devEnvBin}
+    '';
+  };
 
   programs.git = {
     includes = [{

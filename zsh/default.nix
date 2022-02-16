@@ -20,20 +20,33 @@ in {
 
   home.packages = [ antibodyBundle pkgs.zsh ];
 
-  # prompt
-  programs.starship.enable = true;
+  programs.zsh = {
+    shellAliases = {
+      hms = "home-manager switch";
+      kc = "kubectl";
+      ls = "ls --color=auto -F";
+      "r!" = "unset __HM_SESS_VARS_SOURCED; exec \"$SHELL\" -l";
 
-  programs.zsh.initExtraBeforeCompInit = ''
-    ${readFile ./pre-compinit.zsh}
-  '';
+      g = "git";
+      ga = "git add";
+      gc = "git commit";
+      gs = "git status";
+    };
 
-  home.sessionVariables = {
-    CLICOLOR = true;
-    EDITOR = "vim";
-    VEDITOR = "code";
-    KEYTIMEOUT = 1; # reduce delay when entering command mode (esc)
-    PJ_PATH = settings.codeSrcPath;
-    NIX_PROFILE_DIRECTORY = profileDirectory;
+    initExtraBeforeCompInit = ''
+      NIX_PROFILE_DIRECTORY=${profileDirectory};
+      export NIX_PROFILE_DIRECTORY
+
+      ${readFile ./pre-compinit.zsh}
+    '';
+
+    initExtra = ''
+      GPG_TTY="$(tty)"
+      export GPG_TTY
+
+      KEYTIMEOUT=1 # reduce delay when entering command mode (esc)
+      export KEYTIMEOUT
+    '';
   };
 
   home.file.".zsh_functions".source = ./functions;
