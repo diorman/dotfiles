@@ -10,6 +10,7 @@
     ./gpg
     ./iidy
     ./iterm
+    ./kitty
     ./ruby
     ./tmux
     ./unbounce
