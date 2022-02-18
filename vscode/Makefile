@@ -1,5 +1,5 @@
-DOTFILES = $(shell git rev-parse --show-toplevel)
-EXTENSIONS_FILE=$(DOTFILES)/vscode/extensions.txt
+DOTFILES := $(shell git rev-parse --show-toplevel)
+EXTENSIONS_FILE := $(DOTFILES)/vscode/extensions.txt
 .DEFAULT_GOAL := install-extensions
 
 .PHONY: save-extensions
