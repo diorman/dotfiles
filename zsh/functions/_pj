@@ -2,9 +2,9 @@
 
 local default_host=${PJ_DEFAULT_HOST:-"github.com"}
 
-[[ -n $PJ_DEFAULT_ORG ]] && \
-	_files -W "$PJ_PATH/$default_host/$PJ_DEFAULT_ORG" -/
+[[ -n $PJ_DEFAULT_USER ]] && \
+	_files -W "$CODEPATH/$default_host/$PJ_DEFAULT_USER" -/
 
-_files -W "$PJ_PATH/$default_host" -/
+_files -W "$CODEPATH/$default_host" -/
 
-_files -W "$PJ_PATH" -/
+_files -W "$CODEPATH" -/

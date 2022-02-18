@@ -7,7 +7,7 @@ let
 
 in {
   home.sessionVariables = {
-    PJ_DEFAULT_ORG = "unbounce";
+    PJ_DEFAULT_USER = "unbounce";
   };
 
   programs = {

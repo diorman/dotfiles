@@ -46,6 +46,8 @@ in {
 
       KEYTIMEOUT=1 # reduce delay when entering command mode (esc)
       export KEYTIMEOUT
+
+      PATH="${settings.codePath}/bin:$PATH"
     '';
   };
 

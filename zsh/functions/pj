@@ -27,8 +27,8 @@ _pj_to_canonical_url() {
 
   local default_host=${PJ_DEFAULT_HOST:-"github.com"}
 
-  if [[ $(_pj_count_url_parts "$repo") -eq 1 && -n $PJ_DEFAULT_ORG ]]; then
-    repo="$PJ_DEFAULT_ORG/$repo"
+  if [[ $(_pj_count_url_parts "$repo") -eq 1 && -n $PJ_DEFAULT_USER ]]; then
+    repo="$PJ_DEFAULT_USER/$repo"
   fi
 
   if [ "$(_pj_count_url_parts "$repo")" -eq 2 ]; then
@@ -76,12 +76,12 @@ _pj_main() {
   local dest
 
   if [[ "$repo" == "." ]]; then
-    canonical_url=${PWD#"$PJ_PATH/"}
+    canonical_url=${PWD#"$CODEPATH/"}
   else
     canonical_url=$(_pj_to_canonical_url "$repo")
   fi
 
-  dest="$PJ_PATH/$canonical_url"
+  dest="$CODEPATH/$canonical_url"
   clone_url=$(_pj_to_git_url "$canonical_url")
 
   if ! test -d "$dest"; then
