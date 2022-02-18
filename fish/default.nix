@@ -40,4 +40,5 @@ in {
   # https://github.com/NixOS/nix/issues/1512#issuecomment-1025520466
   home.file."${config.xdg.configHome}/fish/conf.d/nix-env.fish".source = "${nixEnvFish}/conf.d/nix-env.fish";
   home.file."${config.xdg.configHome}/fish/functions/fish_title.fish".source = ./functions/fish_title.fish;
+  home.file."${config.xdg.configHome}/fish/completions/pj.fish".source = ./completions/pj.fish;
 }

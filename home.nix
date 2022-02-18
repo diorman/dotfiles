@@ -14,6 +14,7 @@
     ./ruby
     ./tmux
     ./unbounce
+    ./utils
     ./vscode
     ./zsh
   ];
