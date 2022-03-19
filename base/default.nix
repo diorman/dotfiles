@@ -43,6 +43,7 @@ in {
     kubectx # Fast way to switch between clusters and namespaces in kubectl!
     niv # Easy dependency management for Nix projects
     openssl # A cryptographic library that implements the SSL and TLS protocols
+    python3 # A high-level dynamically-typed programming language
     rustup	# The Rust toolchain installer
     shellcheck # Shell script analysis tool
     tmate # Instant Terminal Sharing
