@@ -3,8 +3,7 @@
 let
   pj = pkgs.writeScriptBin "pj" "${builtins.readFile ./pj.sh}";
   gitGet = pkgs.writeScriptBin "git-get" "${builtins.readFile ./git-get.sh}";
-  tab = pkgs.writeScriptBin "tab" "${builtins.readFile ./tab.sh}";
-  tabTree = pkgs.writeScriptBin "tab-tree" "${builtins.readFile ./tab-tree.py}";
+  kittyWindowManager = pkgs.writeScriptBin "kitty-window-manager" "${builtins.readFile ./kitty-window-manager.py}";
 in {
-  home.packages = [ pj gitGet tab tabTree ];
+  home.packages = [ pj gitGet kittyWindowManager ];
 }
