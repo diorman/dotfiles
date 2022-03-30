@@ -8,7 +8,7 @@ in {
     EDITOR = "vim";
     VEDITOR = "code";
     CODEPATH = settings.codePath;
-  };
+  } // settings.sessionVariables;
 
   programs = {
     home-manager.enable = true;
