@@ -16,6 +16,5 @@
     ./unbounce
     ./utils
     ./vscode
-    ./zsh
   ];
 }
