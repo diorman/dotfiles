@@ -176,14 +176,14 @@ def fatal(msg):
 
 
 def open_project():
-    result = os.popen(f'find "$CODEPATH/src/" -mindepth 3 -maxdepth 3 -type d | sed "s|$CODEPATH/src/||" | {FZF} --print-query').read().split('\n')[:-1]
+    result = os.popen(f'find "$CODEPATH/" -mindepth 3 -maxdepth 3 -type d | sed "s|$CODEPATH/||" | {FZF} --print-query').read().split('\n')[:-1]
 
     if not result:
         os.system('[ -n "$__KITTY_PREVIOUS_WINDOW_ID" ] && kitty @ focus-window --match id:$__KITTY_PREVIOUS_WINDOW_ID 2>/dev/null')
         return
 
     if len(result) == 2:
-        dir = '{}/src/{}'.format(os.getenv('CODEPATH'), result[-1])
+        dir = '{}/{}'.format(os.getenv('CODEPATH'), result[-1])
     else:
         print(f"Cloning '{result[0]}'...")
         dir = os.popen(f'''git-get '{result[0]}' 2>&1 | head -n 1 | sed -r "s/Cloning into '(.*)'.../\\1/"''').read().strip()

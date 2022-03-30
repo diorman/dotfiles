@@ -67,7 +67,7 @@ in {
 
     typeset -U path cdpath fpath manpath
 
-    cdpath+=("${settings.codeSrcPath}")
+    cdpath+=("${settings.codePath}")
 
     ${cfg.initExtraBeforeCompInit}
 

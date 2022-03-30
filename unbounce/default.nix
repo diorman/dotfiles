@@ -3,7 +3,7 @@
 let
   settings = import ../settings.nix;
   gitConfig = settings.git;
-  devEnvBin = "${settings.codeSrcPath}/github.com/unbounce/dev-env/bin";
+  devEnvBin = "${settings.codePath}/github.com/unbounce/dev-env/bin";
 
 in {
   home.sessionVariables = {
