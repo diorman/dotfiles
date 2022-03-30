@@ -7,7 +7,6 @@ in {
   home.sessionVariables = {
     EDITOR = "vim";
     VEDITOR = "code";
-    CDPATH = settings.codeSrcPath;
     CODEPATH = settings.codePath;
   };
 

@@ -1,5 +1,5 @@
 function fish_title
-  if echo $PWD | grep -q $CODEPATH/src 2>/dev/null
+  if echo $PWD | grep -q $CODEPATH 2>/dev/null
     set title (echo $PWD | sed -r 's/(.*\/)([^\/]*\/[^\/]*)$/\2/')
   else
     set title (prompt_pwd)

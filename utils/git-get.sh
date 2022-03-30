@@ -43,7 +43,7 @@ repository_url() {
 directory_from_url() {
   local path
   path=$(echo "$1" | sed -r 's/^(git@|https:\/\/)(.*)(:|\/)(.*)\/(.*)\.git$/\2\/\4\/\5/')
-  echo "$CODEPATH/src/$path"
+  echo "$CODEPATH/$path"
 }
 
 main() {
