@@ -43,6 +43,7 @@ in {
 
     ignores = [
       ".direnv/"
+      ".vim/"
       ".DS_Store"
       ".idea"
       "*.iml"

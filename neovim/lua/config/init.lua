@@ -1,0 +1,7 @@
+require("config.options")
+require("config.keymaps")
+require("config.colorscheme")
+require("config.tree")
+require("config.telescope")
+-- require("config.treesitter")
+-- require("config.lsp")
