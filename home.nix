@@ -11,6 +11,7 @@
     ./iidy
     ./iterm
     ./kitty
+    ./neovim
     ./ruby
     ./tmux
     ./unbounce

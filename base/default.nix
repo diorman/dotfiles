@@ -48,6 +48,5 @@ in {
     tmate # Instant Terminal Sharing
     tree # Command to produce a depth indented directory listing
     unixtools.watch # Executes a program periodically, showing output fullscreen
-    vim # The most popular clone of the VI editor
   ];
 }
