@@ -19,6 +19,7 @@
       cmp-nvim-lsp
       cmp_luasnip
       luasnip
+      friendly-snippets
       null-ls-nvim
 
       plenary-nvim
