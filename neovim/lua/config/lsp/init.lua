@@ -131,5 +131,11 @@ require("lspconfig").tsserver.setup({
   on_attach = function(client, bufnr)
     client.resolved_capabilities.document_formatting = false
     _on_attach(client, bufnr)
+    vim.cmd([[
+      augroup lsp_buf_format
+        au! BufWritePre <buffer>
+        autocmd BufWritePre <buffer> :lua vim.lsp.buf.formatting_sync()
+      augroup end
+    ]])
   end,
 })
