@@ -42,7 +42,6 @@
 
   home.packages = with pkgs; [
     ripgrep
-    nodePackages.typescript-language-server
     rnix-lsp
   ];
 
