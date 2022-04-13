@@ -23,6 +23,7 @@ cmp.setup({
     ["<CR>"] = cmp.mapping.confirm({ select = true }),
   },
   sources = cmp.config.sources({
+    { name = "nvim_lsp" },
     { name = "luasnip" },
     { name = "buffer", keyword_length = 5 },
     { name = "path" },
@@ -30,10 +31,11 @@ cmp.setup({
   formatting = {
     format = require("lspkind").cmp_format({
       mode = "symbol_text",
-      menu = ({
+      menu = {
+        nvim_lsp = "[LSP]",
         buffer = "[Buffer]",
         luasnip = "[LuaSnip]",
-      })
+      },
     }),
   },
   documentation = {
