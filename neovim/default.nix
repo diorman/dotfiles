@@ -11,6 +11,7 @@
       nvim-treesitter
       nvim-lspconfig
       lspkind-nvim
+      gitsigns-nvim
 
       nvim-cmp
       cmp-buffer
