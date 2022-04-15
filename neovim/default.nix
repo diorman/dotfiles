@@ -12,6 +12,7 @@
       nvim-lspconfig
       lspkind-nvim
       gitsigns-nvim
+      comment-nvim
 
       nvim-cmp
       cmp-buffer
