@@ -53,6 +53,7 @@ in {
       ".vscode/"
       ".envrc"
       "shell.nix"
+      ".nix/"
       ".factorypath"
     ];
   };
