@@ -65,7 +65,7 @@ M.make_config = function(config)
     flags = {
       debounce_text_changes = 150,
     },
-  }, config)
+  }, config or {})
 end
 
 return M
