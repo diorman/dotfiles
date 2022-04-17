@@ -45,6 +45,7 @@
   home.packages = with pkgs; [
     ripgrep
     rnix-lsp
+    gopls
   ];
 
   home.file."${config.xdg.configHome}/nvim/lua".source = config.lib.file.mkOutOfStoreSymlink ./lua;
