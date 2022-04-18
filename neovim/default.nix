@@ -13,6 +13,7 @@
       lspkind-nvim
       gitsigns-nvim
       comment-nvim
+      lualine-nvim
 
       nvim-cmp
       cmp-buffer
