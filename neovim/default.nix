@@ -14,6 +14,7 @@
       gitsigns-nvim
       comment-nvim
       lualine-nvim
+      nvim-autopairs
 
       nvim-cmp
       cmp-buffer
