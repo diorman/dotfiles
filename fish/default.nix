@@ -9,28 +9,30 @@ let
     sha256 = "069ybzdj29s320wzdyxqjhmpm9ir5815yx6n522adav0z2nz8vs4";
   };
 
-in {
+in
+{
   programs.fish = {
     enable = true;
 
     shellInit = ''
+      fish_add_path ${settings.codePath}/bin
+    '';
+
+    interactiveShellInit = ''
       # disable the welcome message
       set fish_greeting
 
       # required by GPG agent
       set -x GPG_TTY (tty)
 
-      # vi key bindings
       fish_default_key_bindings
-
-      fish_add_path ${settings.codePath}/bin
     '';
 
     shellAbbrs = {
-      g   = "git";
-      ga  = "git add";
-      gc  = "git commit";
-      gs  = "git status";
+      g = "git";
+      ga = "git add";
+      gc = "git commit";
+      gs = "git status";
       gri = "git rebase -i HEAD~";
 
       hm = "home-manager";
