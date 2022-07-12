@@ -1,3 +1,4 @@
+local core = require("config.lsp.core")
 local M = {}
 
 M.make_config = function()
@@ -28,6 +29,12 @@ M.make_config = function()
         },
       },
     },
+    on_attach = function(client, bufnr)
+      -- use stylua for formatting instead
+      client.resolved_capabilities.document_formatting = false
+      client.resolved_capabilities.document_range_formatting = false
+      core.on_attach(client, bufnr)
+    end,
   })
 end
 
