@@ -4,6 +4,8 @@ let
   settings = import ../settings.nix;
 
 in {
+  home.stateVersion = "18.09";
+
   home.sessionVariables = {
     EDITOR = "vim";
     VEDITOR = "code";
