@@ -7,7 +7,7 @@ local formatting = null_ls.builtins.formatting
 null_ls.setup({
   debug = false,
   sources = {
-    diagnostics.eslint,
+    diagnostics.eslint_d,
     formatting.prettierd,
     formatting.stylua,
   },
