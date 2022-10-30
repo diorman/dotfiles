@@ -1,4 +1,5 @@
 require("config.options")
+require("config.packer")
 require("config.keymaps")
 require("config.colorscheme")
 require("config.autocommands")
