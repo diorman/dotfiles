@@ -3,7 +3,8 @@
 let
   gitConfig = (import ../settings.nix).git;
 
-in {
+in
+{
   programs.git = {
     enable = true;
     userName = "Diorman Colmenares";
@@ -36,6 +37,7 @@ in {
       format.pretty = "format:%Cred%h%Creset%C(yellow)%d%Creset %s %C(bold blue)<%an>%n%C(magenta)%ad %Cgreen(%cr)%Creset%n";
       init.defaultBranch = "main";
       push = {
+        autoSetupRemote = true;
         default = "current";
         followTags = true;
       };
