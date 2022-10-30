@@ -17,13 +17,13 @@ local set_keymaps = function(bufnr)
       ["<leader>rn"] = ":lua vim.lsp.buf.rename()<CR>",
       ["<leader>ca"] = ":lua vim.lsp.buf.code_action()<CR>",
       ["gr"] = ":lua vim.lsp.buf.references()<CR>",
-      ["<leader>f"] = ":lua vim.lsp.buf.formatting_sync()<CR>",
+      ["<leader>f"] = ":lua vim.lsp.buf.format()<CR>",
     },
   })
 end
 
 local set_autocommands = function(client)
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.document_highlight then
     vim.cmd([[
       augroup lsp_document_highlight
         autocmd! * <buffer>
@@ -33,7 +33,7 @@ local set_autocommands = function(client)
     ]])
   end
 
-  if client.resolved_capabilities.code_lens then
+  if client.server_capabilities.code_lens then
     vim.cmd([[
       augroup lsp_document_codelens
         autocmd! * <buffer>
@@ -46,7 +46,7 @@ local set_autocommands = function(client)
   vim.cmd([[
     augroup lsp_buf_format
       autocmd! * <buffer>
-      autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+      autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
     augroup end
   ]])
 end
@@ -61,7 +61,7 @@ end
 M.make_config = function(config)
   return vim.tbl_deep_extend("force", {
     on_attach = M.on_attach,
-    capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+    capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
     flags = {
       debounce_text_changes = 150,
     },
