@@ -14,6 +14,7 @@
     ./neovim
     ./ruby
     ./tmux
+    ./typescript
     ./unbounce
     ./utils
     ./vscode
