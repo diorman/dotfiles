@@ -52,7 +52,6 @@ in
       ".classpath"
       ".project"
       ".settings"
-      ".vscode/"
       ".envrc"
       "shell.nix"
       ".nix/"

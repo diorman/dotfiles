@@ -2,7 +2,7 @@ DOTFILES = $(shell git rev-parse --show-toplevel)
 .DEFAULT_GOAL := setup
 
 .PHONY: setup
-setup: home-manager brew vscode dns
+setup: home-manager brew dns
 
 .PHONY: home-manager
 home-manager:
@@ -18,8 +18,3 @@ dns:
 .PHONY: brew
 brew:
 	$(MAKE) -C brew
-
-.PHONY: vscode
-vscode:
-	$(MAKE) -C vscode
-
