@@ -4,7 +4,6 @@
   imports = [
     ./base
     ./brew
-    ./fish
     ./git
     ./go
     ./gpg
@@ -12,6 +11,7 @@
     ./kitty
     ./neovim
     ./ruby
+    ./shell/default.nix
     ./tmux
     ./typescript
     ./unbounce

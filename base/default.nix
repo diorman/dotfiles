@@ -19,7 +19,6 @@ in
 
     packages = with pkgs; [
       awscli2 # Unified tool to manage your AWS services
-      bash # GNU Bourne-Again Shell, the de facto standard shell on Linux
       bat # A cat clone with syntax highlighting and Git integration
       coreutils # The basic file, shell and text manipulation utilities of the GNU operating system
       curl # A command line tool for transferring files with URL syntax
@@ -53,8 +52,5 @@ in
       enable = true;
       nix-direnv.enable = true;
     };
-
-    # shell prompt
-    starship.enable = true;
   };
 }

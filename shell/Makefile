@@ -1,5 +1,4 @@
 DEFAULT_GOAL := configure
-
 .PHONY: configure
 configure: FiSH_PATH := $(HOME)/.nix-profile/bin/fish
 configure:
