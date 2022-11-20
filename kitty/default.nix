@@ -13,8 +13,9 @@ let
     sha256 = "098qpq2v72hk6mafbrxhjzh6pvmima7wydd6fzlq6zy4jxxq53l5";
   };
 
-in {
+in
+{
   home.file."${config.xdg.configHome}/kitty/kitty.conf".source = config.lib.file.mkOutOfStoreSymlink ./kitty.conf;
   home.file."${config.xdg.configHome}/kitty/snazzy.conf".source = "${snazzyTheme}/snazzy.conf";
-  home.file."${config.xdg.configHome}/kitty/icon.icns".source = "${terminalIcons}/icns/dracula.icns";
+  home.file."${config.xdg.configHome}/kitty/kitty.app.icns".source = "${terminalIcons}/icns/dracula.icns";
 }
