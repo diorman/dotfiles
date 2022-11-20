@@ -9,7 +9,6 @@
     ./go
     ./gpg
     ./iidy
-    ./iterm
     ./kitty
     ./neovim
     ./ruby
