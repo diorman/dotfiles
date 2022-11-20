@@ -13,7 +13,7 @@ in
 
     sessionVariables = {
       EDITOR = "vim";
-      VEDITOR = "code";
+      VISUAL = "vim";
       CODEPATH = settings.codePath;
     } // settings.sessionVariables;
 
