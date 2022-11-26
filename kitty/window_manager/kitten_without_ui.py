@@ -3,7 +3,7 @@ from kitty.boss import Boss
 from kitty.window import Window
 from kittens.tui.handler import result_handler
 
-from windows import get_tab_groups
+from windows import get_tab_groups, get_tab_group_key
 from system import HOMEPATH
 
 def main(args: List[str]) -> str:
@@ -21,6 +21,8 @@ def handle_result(args: List[str], answer: str, target_window_id: int, boss: Bos
         select_tab_group_handler(boss, target_window)
     elif action == 'select_tab_group_by_index':
         select_tab_group_by_index_handler(boss, target_window, int(args[2]))
+    elif action == 'select_tab_in_tab_group':
+        select_tab_in_tab_group_handler(boss, target_window)
 
 def select_tab_group_handler(boss: Boss, target_window: Window):
     n = 1
@@ -30,7 +32,7 @@ def select_tab_group_handler(boss: Boss, target_window: Window):
     for tab_group_key in tab_groups_keys:
         # the home tab group has its own key binding so it is excluded here
         if tab_group_key != '@home':
-            choices.append(f'[{n if n < 10 else "_"}] {tab_group_key}')
+            choices.append(f'[{n}] {tab_group_key}')
             n += 1
 
     if choices:
@@ -50,5 +52,20 @@ def select_tab_group_by_index_handler(boss: Boss, target_window: Window, index: 
         if index <= len(tab_groups_keys):
             tab_group = tab_groups.get(tab_groups_keys[index - 1])
 
-    if tab_group and tab_group.active_window.id != target_window.id:
+    if tab_group:
         boss.set_active_window(tab_group.active_window)
+
+def select_tab_in_tab_group_handler(boss: Boss, target_window: Window):
+    tab_group_key = get_tab_group_key(target_window)
+    tab_group = get_tab_groups(boss, target_window.os_window_id).get(tab_group_key)
+
+    if not tab_group:
+        return
+
+    choices = []
+
+    for index, (tab, _) in enumerate(tab_group.tabs):
+        len_windows = len(tab.windows)
+        choices.append(f'[{index + 1}] {tab.title} ({len_windows} {"windows" if len_windows > 1 else "window"})')
+
+    boss.call_remote_control(target_window, ('kitten', './window_manager/kitten_with_ui.py', 'select_tab_in_tab_group', *choices))

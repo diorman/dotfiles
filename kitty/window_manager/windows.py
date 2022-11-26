@@ -7,9 +7,14 @@ from kitty.tabs import Tab
 from system import HOMEPATH, CODEPATH
 
 class TabGroup:
-    def __init__(self, active_window):
-        self.active_window = active_window
-        self.windows = [active_window]
+    def __init__(self):
+        self.active_window = None
+        self.tabs = []
+
+    def add_tab(self, tab: Tab, tab_active_window: Window):
+        self.tabs.append((tab, tab_active_window))
+        if not self.active_window or self.active_window.last_focused_at < tab_active_window.last_focused_at:
+            self.active_window = tab_active_window
 
 def get_tab_groups(boss: Boss, os_window_id: int) -> Dict[str, Window]:
     tab_groups = {}
@@ -18,23 +23,15 @@ def get_tab_groups(boss: Boss, os_window_id: int) -> Dict[str, Window]:
         if tab.os_window_id != os_window_id:
             continue
 
-        active_window = get_active_window_in_tab(tab)
-
-        if not active_window:
-            continue
-
-        tab_group_key = get_tab_group_key(active_window)
+        tab_active_window = get_active_window_in_tab(tab)
+        tab_group_key = get_tab_group_key(tab_active_window)
         tab_group = tab_groups.get(tab_group_key)
 
         if not tab_group:
-            tab_group = TabGroup(active_window)
+            tab_group = TabGroup()
             tab_groups[tab_group_key] = tab_group
-            continue
 
-        tab_group.windows.append(active_window)
-
-        if active_window.last_focused_at > tab_group.active_window.last_focused_at:
-            tab_group.active_window = active_window
+        tab_group.add_tab(tab, tab_active_window)
 
     return tab_groups
 
