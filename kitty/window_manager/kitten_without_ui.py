@@ -3,7 +3,7 @@ from kitty.boss import Boss
 from kitty.window import Window
 from kittens.tui.handler import result_handler
 
-from utils import is_window_manager_overlay, get_tab_groups
+from windows import get_tab_groups
 
 def main(args: List[str]) -> str:
     pass
@@ -31,4 +31,4 @@ def select_tab_group_handler(boss: Boss, target_window: Window):
             n += 1
 
     if choices:
-        boss.call_remote_control(target_window, ('kitten', './window_manager/overlay.py', 'select_tab_group', *choices))
+        boss.call_remote_control(target_window, ('kitten', './window_manager/kitten_with_ui.py', 'select_tab_group', *choices))

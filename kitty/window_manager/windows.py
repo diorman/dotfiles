@@ -1,10 +1,10 @@
-import os
 import re
-
 from typing import List, Dict, Optional
 from kitty.boss import Boss
 from kitty.window import Window
 from kitty.tabs import Tab
+
+from system import HOMEPATH, CODEPATH
 
 class TabGroup:
     def __init__(self, active_window):
@@ -41,13 +41,13 @@ def get_tab_groups(boss: Boss, os_window_id: int) -> Dict[str, Window]:
 def get_active_window_in_tab(tab: Tab) -> Optional[Window]:
     active_window = tab.active_window
 
-    if not is_window_manager_overlay(active_window):
+    if not is_kitten_with_ui_window(active_window):
         return active_window
 
     active_window = None
 
     for window in tab.windows.all_windows:
-        if is_window_manager_overlay(window):
+        if is_kitten_with_ui_window(window):
             continue
 
         if not active_window or window.last_focused_at > active_window.last_focused_at:
@@ -57,12 +57,12 @@ def get_active_window_in_tab(tab: Tab) -> Optional[Window]:
 
 def get_tab_group_key(window: Window) -> str:
     tab_group_key = window.child.current_cwd or window.child.cwd
-    tab_group_key = re.sub(f'^{os.getenv("HOME")}/Code', '@code', tab_group_key)
-    tab_group_key = re.sub(f'^{os.getenv("HOME")}', '@home', tab_group_key)
+    tab_group_key = re.sub(f'^{CODEPATH}', '@code', tab_group_key)
+    tab_group_key = re.sub(f'^{HOMEPATH}', '@home', tab_group_key)
     return tab_group_key
 
-def is_window_manager_overlay(window: Window) -> bool:
+def is_kitten_with_ui_window(window: Window) -> bool:
     return (len(window.child.cmdline) >= 5
             and window.child.cmdline[0].endswith('kitty')
             and window.child.cmdline[1] == '+runpy'
-            and window.child.cmdline[4].endswith('window_manager/overlay.py'))
+            and window.child.cmdline[4].endswith('window_manager/kitten_with_ui.py'))

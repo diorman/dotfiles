@@ -18,8 +18,5 @@ in
   home.file."${config.xdg.configHome}/kitty/kitty.conf".source = config.lib.file.mkOutOfStoreSymlink ./kitty.conf;
   home.file."${config.xdg.configHome}/kitty/snazzy.conf".source = "${snazzyTheme}/snazzy.conf";
   home.file."${config.xdg.configHome}/kitty/kitty.app.icns".source = "${terminalIcons}/icns/dracula.icns";
-  home.file."${config.xdg.configHome}/kitty/window_manager/main.py".source = config.lib.file.mkOutOfStoreSymlink ./window_manager/main.py;
-  home.file."${config.xdg.configHome}/kitty/window_manager/overlay.py".source = config.lib.file.mkOutOfStoreSymlink ./window_manager/overlay.py;
-  home.file."${config.xdg.configHome}/kitty/window_manager/utils.py".source = config.lib.file.mkOutOfStoreSymlink ./window_manager/utils.py;
-  home.file."${config.xdg.configHome}/kitty/window_manager/watcher.py".source = config.lib.file.mkOutOfStoreSymlink ./window_manager/watcher.py;
+  home.file."${config.xdg.configHome}/kitty/window_manager".source = config.lib.file.mkOutOfStoreSymlink ./window_manager;
 }
