@@ -23,6 +23,8 @@ def handle_result(args: List[str], answer: str, target_window_id: int, boss: Bos
         select_tab_group_by_index_handler(boss, target_window, int(args[2]))
     elif action == 'select_tab_in_tab_group':
         select_tab_in_tab_group_handler(boss, target_window)
+    elif action == 'select_tab_in_tab_group_by_index':
+        select_tab_in_tab_group_by_index_handler(boss, target_window, int(args[2]))
 
 def select_tab_group_handler(boss: Boss, target_window: Window):
     n = 1
@@ -47,10 +49,11 @@ def select_tab_group_by_index_handler(boss: Boss, target_window: Window, index: 
         if not tab_group:
             boss.call_remote_control(target_window, ('launch', '--type=tab', f'--cwd={HOMEPATH}', '--no-response'))
     else:
+        index -= 1
         tab_groups_keys = list(filter(lambda key: key != '@home', tab_groups.keys()))
 
-        if index <= len(tab_groups_keys):
-            tab_group = tab_groups.get(tab_groups_keys[index - 1])
+        if index < len(tab_groups_keys):
+            tab_group = tab_groups.get(tab_groups_keys[index])
 
     if tab_group:
         boss.set_active_window(tab_group.active_window)
@@ -69,3 +72,12 @@ def select_tab_in_tab_group_handler(boss: Boss, target_window: Window):
         choices.append(f'[{index + 1}] {tab.title} ({len_windows} {"windows" if len_windows > 1 else "window"})')
 
     boss.call_remote_control(target_window, ('kitten', './window_manager/kitten_with_ui.py', 'select_tab_in_tab_group', *choices))
+
+def select_tab_in_tab_group_by_index_handler(boss: Boss, target_window: Window, index: int):
+    tab_group_key = get_tab_group_key(target_window)
+    tab_group = get_tab_groups(boss, target_window.os_window_id).get(tab_group_key)
+    index -= 1
+
+    if tab_group and index < len(tab_group.tabs):
+        _, active_window = tab_group.tabs[index]
+        boss.set_active_window(active_window)
