@@ -39,6 +39,8 @@ in
         hm = "home-manager";
 
         bash = "$HOME/.nix-profile/bin/bash";
+
+        lg = "lazygit";
       };
 
     };

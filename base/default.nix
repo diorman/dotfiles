@@ -33,6 +33,7 @@ in
       k9s # Kubernetes CLI To Manage Your Clusters In Style
       kubectl # Kubernetes CLI
       kubectx # Fast way to switch between clusters and namespaces in kubectl!
+      lazygit # Simple terminal UI for git commands
       niv # Easy dependency management for Nix projects
       openssl # A cryptographic library that implements the SSL and TLS protocols
       python3 # A high-level dynamically-typed programming language
