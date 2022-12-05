@@ -19,4 +19,5 @@ in
   home.file."${config.xdg.configHome}/kitty/snazzy.conf".source = "${snazzyTheme}/snazzy.conf";
   home.file."${config.xdg.configHome}/kitty/kitty.app.icns".source = "${terminalIcons}/icns/dracula.icns";
   home.file."${config.xdg.configHome}/kitty/window_manager".source = config.lib.file.mkOutOfStoreSymlink ./window_manager;
+  home.file."${config.xdg.configHome}/kitty/tab_bar.py".source = config.lib.file.mkOutOfStoreSymlink ./tab_bar.py;
 }
