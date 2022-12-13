@@ -37,6 +37,7 @@ in
       niv # Easy dependency management for Nix projects
       openssl # A cryptographic library that implements the SSL and TLS protocols
       python3 # A high-level dynamically-typed programming language
+      rust-analyzer # A modular compiler frontend for the Rust language
       rustup # The Rust toolchain installer
       shellcheck # Shell script analysis tool
       tmate # Instant Terminal Sharing

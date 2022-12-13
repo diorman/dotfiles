@@ -39,6 +39,12 @@ local servers = {
     enabled = true,
     make_config = require("config.lsp.tsserver").make_config,
   },
+
+  -- rust
+  rust_analyzer = {
+    enabled = true,
+    make_config = core.make_config,
+  },
 }
 
 for server, settings in pairs(servers) do
