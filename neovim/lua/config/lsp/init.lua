@@ -1,4 +1,5 @@
 require("config.lsp.diagnostic").setup()
+require("fidget").setup()
 
 local null_ls = require("null-ls")
 local diagnostics = null_ls.builtins.diagnostics

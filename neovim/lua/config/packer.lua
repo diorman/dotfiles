@@ -9,7 +9,14 @@ return require("packer").startup(function(use)
     run = ":TSUpdate",
   })
 
-  use("neovim/nvim-lspconfig")
+  use({ -- LSP Configuration & Plugins
+    "neovim/nvim-lspconfig",
+    requires = {
+      -- Useful status updates for LSP
+      "j-hui/fidget.nvim",
+    },
+  })
+
   use("onsails/lspkind.nvim")
 
   use("lewis6991/gitsigns.nvim")
