@@ -35,6 +35,7 @@ in
       kubectx # Fast way to switch between clusters and namespaces in kubectl!
       lazygit # Simple terminal UI for git commands
       niv # Easy dependency management for Nix projects
+      nodejs # Event-driven I/O framework for the V8 JavaScript engine
       openssl # A cryptographic library that implements the SSL and TLS protocols
       python3 # A high-level dynamically-typed programming language
       rust-analyzer # A modular compiler frontend for the Rust language
