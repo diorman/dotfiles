@@ -29,6 +29,7 @@ in
       gnumake # A tool to control the generation of non-source files from sources
       gnused # GNU sed, a batch stream editor
       gnutar # GNU implementation of the `tar' archiver
+      go # The Go Programming language
       jq # A lightweight and flexible command-line JSON processor
       k9s # Kubernetes CLI To Manage Your Clusters In Style
       kubectl # Kubernetes CLI
@@ -38,7 +39,7 @@ in
       nodejs # Event-driven I/O framework for the V8 JavaScript engine
       openssl # A cryptographic library that implements the SSL and TLS protocols
       python3 # A high-level dynamically-typed programming language
-      rust-analyzer # A modular compiler frontend for the Rust language
+      ripgrep # Line-oriented search tool that recursively searches the current directory for a regex pattern
       rustup # The Rust toolchain installer
       shellcheck # Shell script analysis tool
       tmate # Instant Terminal Sharing
