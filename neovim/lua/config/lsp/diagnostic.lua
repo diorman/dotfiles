@@ -1,8 +1,8 @@
 local M = {}
 
-M.virtual_text = false
+M.show_virtual_text = true
 
-local function set_config(config)
+local function set_config()
   local signs = {
     { name = "DiagnosticSignError", text = "" },
     { name = "DiagnosticSignWarn", text = "" },
@@ -14,8 +14,18 @@ local function set_config(config)
     vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
   end
 
-  local _config = vim.tbl_deep_extend("force", {
-    virtual_text = false,
+  local virtual_text = {}
+
+  if M.show_virtual_text then
+    virtual_text = {
+      severity = nil,
+      source = "if_many",
+      format = nil,
+    }
+  end
+
+  vim.diagnostic.config({
+    virtual_text,
     signs = {
       active = signs,
     },
@@ -27,28 +37,22 @@ local function set_config(config)
       style = "minimal",
       source = "always",
     },
-  }, config)
+  })
+end
 
-  vim.diagnostic.config(_config)
+local function toggle_virtual_text()
+  M.show_virtual_text = not M.show_virtual_text
+  set_config()
 end
 
 M.setup = function()
-  require("config.utils").keymaps({
-    n = {
-      ["<leader>e"] = ":lua vim.diagnostic.open_float()<CR>",
-      ["[d"] = ":lua vim.diagnostic.goto_prev()<CR>",
-      ["]d"] = ":lua vim.diagnostic.goto_next()<CR>",
-      ["<leader>q"] = ":lua vim.diagnostic.setloclist()<CR>",
-      ["<leader>dt"] = ":lua require('config.lsp.diagnostic').toggle_virtual_text()<CR>",
-    },
-  })
+  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+  vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+  vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
+  vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+  vim.keymap.set("n", "<leader>vt", toggle_virtual_text)
 
-  set_config({ virtual_text = M.virtual_text })
-end
-
-M.toggle_virtual_text = function()
-  M.virtual_text = not M.virtual_text
-  set_config({ virtual_text = M.virtual_text })
+  set_config()
 end
 
 return M
