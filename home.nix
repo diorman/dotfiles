@@ -5,7 +5,6 @@
     ./base
     ./brew
     ./git
-    ./go
     ./gpg
     ./iidy
     ./kitty
@@ -13,7 +12,6 @@
     ./ruby
     ./shell/default.nix
     ./tmux
-    ./typescript
     ./unbounce
     ./utils
   ];
