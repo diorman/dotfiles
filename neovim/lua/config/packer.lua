@@ -47,6 +47,4 @@ return require("packer").startup(function(use)
   use("EdenEast/nightfox.nvim")
 
   use("lukas-reineke/indent-blankline.nvim")
-
-  use("LnL7/vim-nix")
 end)
