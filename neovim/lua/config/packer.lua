@@ -16,6 +16,11 @@ return require("packer").startup(function(use)
     after = "nvim-treesitter",
   })
 
+  use({
+    "nvim-telescope/telescope.nvim",
+    requires = "nvim-lua/plenary.nvim",
+  })
+
   use({ -- LSP Configuration & Plugins
     "neovim/nvim-lspconfig",
     requires = {
@@ -24,34 +29,25 @@ return require("packer").startup(function(use)
     },
   })
 
-  use("onsails/lspkind.nvim")
-
-  use("lewis6991/gitsigns.nvim")
-  use("numToStr/Comment.nvim")
-
-  use({
-    "nvim-lualine/lualine.nvim",
-    -- requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  use({ -- Autocompletion
+    "hrsh7th/nvim-cmp",
+    requires = {
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-nvim-lsp",
+      "saadparwaiz1/cmp_luasnip",
+      "L3MON4D3/LuaSnip",
+      "rafamadriz/friendly-snippets",
+      "onsails/lspkind.nvim",
+    },
   })
 
-  use("windwp/nvim-autopairs")
-
-  use("hrsh7th/nvim-cmp")
-  use("hrsh7th/cmp-buffer")
-  use("hrsh7th/cmp-path")
-  use("hrsh7th/cmp-nvim-lua")
-  use("hrsh7th/cmp-nvim-lsp")
-  use("saadparwaiz1/cmp_luasnip")
-  use("L3MON4D3/LuaSnip")
-  use("rafamadriz/friendly-snippets")
-  use("jose-elias-alvarez/null-ls.nvim")
-
-  use({
-    "nvim-telescope/telescope.nvim",
-    requires = "nvim-lua/plenary.nvim",
-  })
-
-  use("EdenEast/nightfox.nvim")
-
-  use("lukas-reineke/indent-blankline.nvim")
+  use("jose-elias-alvarez/null-ls.nvim") -- Use Neovim as a language server to inject LSP features via Lua
+  use("lewis6991/gitsigns.nvim") -- Git
+  use("numToStr/Comment.nvim") -- Comments
+  use("lukas-reineke/indent-blankline.nvim") -- Add indentation guides even on blank lines
+  use("windwp/nvim-autopairs") -- Autopairs
+  use("nvim-lualine/lualine.nvim") -- Fancier statusline
+  use("EdenEast/nightfox.nvim") -- Theme
 end)
