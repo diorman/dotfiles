@@ -32,46 +32,43 @@ local set_keymaps = function(bufnr)
   end, "[W]orkspace [L]ist Folders")
 end
 
-local set_autocommands = function(client, bufnr)
-  local function autocmd(args)
-    local event = args[1]
-    local group = args[2]
-    local callback = args[3]
+local augroup_highlight = vim.api.nvim_create_augroup("custom-lsp-references", { clear = true })
+local augroup_codelens = vim.api.nvim_create_augroup("custom-lsp-codelens", { clear = true })
+local augroup_format = vim.api.nvim_create_augroup("custom-lsp-format", { clear = true })
 
-    vim.api.nvim_create_autocmd(event, {
-      group = group,
-      buffer = bufnr,
-      callback = function()
-        callback()
-      end,
-      once = args.once,
-    })
-  end
+local function clear_autocmds(group, buffer)
+  vim.api.nvim_clear_autocmds({ group = group, buffer = buffer })
+end
 
-  local augroup_highlight = vim.api.nvim_create_augroup("custom-lsp-references", { clear = true })
-  local augroup_codelens = vim.api.nvim_create_augroup("custom-lsp-codelens", { clear = true })
-  local augroup_format = vim.api.nvim_create_augroup("custom-lsp-format", { clear = true })
+local function autocmd(event, group, callback, buffer, opts)
+  opts = opts or {}
+  vim.api.nvim_create_autocmd(event, {
+    group = group,
+    buffer = buffer,
+    callback = function()
+      callback()
+    end,
+    once = opts.once,
+  })
+end
 
+local set_autocommands = function(client, buffer)
   if client.server_capabilities.documentHighlightProvider then
-    vim.api.nvim_clear_autocmds({ group = augroup_highlight, buffer = bufnr })
-    autocmd({ "CursorHold", augroup_highlight, vim.lsp.buf.document_highlight })
-    autocmd({ "CursorMoved", augroup_highlight, vim.lsp.buf.clear_references })
+    clear_autocmds(augroup_highlight, buffer)
+    autocmd("CursorHold", augroup_highlight, vim.lsp.buf.document_highlight, buffer)
+    autocmd("CursorMoved", augroup_highlight, vim.lsp.buf.clear_references, buffer)
   end
 
   if client.server_capabilities.codeLensProvider then
-    vim.api.nvim_clear_autocmds({ group = augroup_codelens, buffer = bufnr })
-    autocmd({ "BufEnter", augroup_codelens, vim.lsp.codelens.refresh, once = true })
-    autocmd({ { "BufWritePost", "CursorHold" }, augroup_codelens, vim.lsp.codelens.refresh })
+    clear_autocmds(augroup_codelens, buffer)
+    autocmd("BufEnter", augroup_codelens, vim.lsp.codelens.refresh, buffer, { once = true })
+    autocmd({ "BufWritePost", "CursorHold" }, augroup_codelens, vim.lsp.codelens.refresh, buffer)
   end
 
-  vim.api.nvim_clear_autocmds({ buffer = 0, group = augroup_format })
-  autocmd({
-    "BufWritePre",
-    augroup_format,
-    function()
-      vim.lsp.buf.format({ async = false })
-    end,
-  })
+  clear_autocmds(augroup_format, buffer)
+  autocmd("BufWritePre", augroup_format, function()
+    vim.lsp.buf.format({ async = false })
+  end, buffer)
 end
 
 M.on_attach = function(client, bufnr)
