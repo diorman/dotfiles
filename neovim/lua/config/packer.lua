@@ -16,9 +16,16 @@ return require("packer").startup(function(use)
     after = "nvim-treesitter",
   })
 
-  use({
+  use({ -- Fuzzy Finder (files, lsp, etc)
     "nvim-telescope/telescope.nvim",
+    branch = "0.1.x",
     requires = "nvim-lua/plenary.nvim",
+  })
+
+  use({ -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
+    "nvim-telescope/telescope-fzf-native.nvim",
+    run = "make",
+    cond = vim.fn.executable("make") == 1,
   })
 
   use({ -- LSP Configuration & Plugins
