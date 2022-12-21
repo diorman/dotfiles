@@ -1,4 +1,4 @@
-local core = require("config.lsp.core")
+local core = require("dc.plugins.lsp.core")
 local M = {}
 
 M.make_config = function()

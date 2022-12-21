@@ -1,4 +1,4 @@
-local core = require("config.lsp.core")
+local core = require("dc.plugins.lsp.core")
 local M = {}
 
 M.make_config = function()
@@ -6,7 +6,7 @@ M.make_config = function()
   table.insert(runtime_path, "lua/?.lua")
   table.insert(runtime_path, "lua/?/init.lua")
 
-  return require("config.lsp.core").make_config({
+  return core.make_config({
     settings = {
       Lua = {
         runtime = {
