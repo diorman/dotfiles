@@ -1,4 +1,4 @@
-require("config.lsp.diagnostic").setup()
+require("dc.plugins.lsp.diagnostic").setup()
 require("fidget").setup()
 
 local null_ls = require("null-ls")
@@ -15,7 +15,7 @@ null_ls.setup({
 })
 
 local lspconfig = require("lspconfig")
-local core = require("config.lsp.core")
+local core = require("dc.plugins.lsp.core")
 local servers = {
   -- golang
   gopls = {
@@ -32,13 +32,13 @@ local servers = {
   -- lua
   sumneko_lua = {
     enabled = true,
-    make_config = require("config.lsp.sumneko-lua").make_config,
+    make_config = require("dc.plugins.lsp.sumneko-lua").make_config,
   },
 
   -- typescript
   tsserver = {
     enabled = true,
-    make_config = require("config.lsp.tsserver").make_config,
+    make_config = require("dc.plugins.lsp.tsserver").make_config,
   },
 
   -- rust

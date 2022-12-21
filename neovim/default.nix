@@ -10,13 +10,10 @@ in
   programs.neovim = {
     enable = true;
     vimAlias = true;
+    extraConfig = "lua require('dc')";
     plugins = with pkgs.vimPlugins; [
       packer-nvim
     ];
-
-    extraConfig = ''
-      lua require('config')
-    '';
   };
 
   home.packages = with pkgs; [
