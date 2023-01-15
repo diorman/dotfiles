@@ -55,10 +55,10 @@ in
   "@fsouza/prettierd" = nodeEnv.buildNodePackage {
     name = "_at_fsouza_slash_prettierd";
     packageName = "@fsouza/prettierd";
-    version = "0.22.5";
+    version = "0.23.2";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@fsouza/prettierd/-/prettierd-0.22.5.tgz";
-      sha512 = "5ie5XsoUGRggQLxFOHNW7Z3VdNUd7ECO8aFT109z/dS42DCvEYsTHuED/AF5syc08aUT2Ym0gTvOPZI4cmCccg==";
+      url = "https://registry.npmjs.org/@fsouza/prettierd/-/prettierd-0.23.2.tgz";
+      sha512 = "0kADmwDO3/wxu71vAzer6OvtNvMQfXpUU0C+ttkMvSWXzu257jsJRZJKUzbondk1SXvD8cLQOulwAB1NoG6H5g==";
     };
     dependencies = [
       sources."core_d-5.0.1"
