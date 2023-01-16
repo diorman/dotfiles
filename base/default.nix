@@ -57,4 +57,7 @@ in
       nix-direnv.enable = true;
     };
   };
+
+  # workaround for https://github.com/nix-community/home-manager/issues/3342
+  manual.manpages.enable = false;
 }
