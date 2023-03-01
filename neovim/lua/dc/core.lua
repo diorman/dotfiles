@@ -101,6 +101,11 @@ local function setup_keymaps()
   vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
   vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
   vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+
+  -- Buffer navigation
+  vim.keymap.set("n", "<C-b>b", "<cmd>b#<CR>") -- alternate last active
+  vim.keymap.set("n", "<C-b>p", "<cmd>bprevious<CR>")
+  vim.keymap.set("n", "<C-b>n", "<cmd>bnext<CR>")
 end
 
 local function setup_theme()
