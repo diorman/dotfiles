@@ -10,7 +10,7 @@ require("telescope").setup({
 pcall(require("telescope").load_extension, "fzf")
 
 -- See `:help telescope.builtin`
-vim.keymap.set("n", "<C-;>", require("telescope.builtin").buffers, { desc = "Search buffers" })
+vim.keymap.set("n", "<C-b>l", require("telescope.builtin").buffers, { desc = "Search buffers" })
 vim.keymap.set("n", "<C-p>", require("telescope.builtin").find_files, { desc = "Search files" })
 vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [H]elp" })
 vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
