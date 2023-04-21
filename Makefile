@@ -6,7 +6,8 @@ setup: home-manager brew dns
 
 .PHONY: home-manager
 home-manager:
-	@ln -sf $(DOTFILES)/home.nix $(HOME)/.config/nixpkgs/home.nix
+	mkdir -p $(HOME)/.config/home-manager
+	@ln -sf $(DOTFILES)/home.nix $(HOME)/.config/home-manager/home.nix
 	@home-manager switch
 
 .PHONY: dns
