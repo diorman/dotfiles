@@ -32,8 +32,6 @@ local set_keymaps = function(bufnr)
   end, "[W]orkspace [L]ist Folders")
 end
 
-local augroup_highlight = vim.api.nvim_create_augroup("custom-lsp-references", { clear = true })
-local augroup_codelens = vim.api.nvim_create_augroup("custom-lsp-codelens", { clear = true })
 local augroup_format = vim.api.nvim_create_augroup("custom-lsp-format", { clear = true })
 
 local function clear_autocmds(group, buffer)
@@ -52,20 +50,9 @@ local function autocmd(event, group, callback, buffer, opts)
   })
 end
 
-local set_autocommands = function(client, buffer)
-  if client.server_capabilities.documentHighlightProvider then
-    clear_autocmds(augroup_highlight, buffer)
-    autocmd("CursorHold", augroup_highlight, vim.lsp.buf.document_highlight, buffer)
-    autocmd("CursorMoved", augroup_highlight, vim.lsp.buf.clear_references, buffer)
-  end
-
-  if client.server_capabilities.codeLensProvider then
-    clear_autocmds(augroup_codelens, buffer)
-    autocmd("BufEnter", augroup_codelens, vim.lsp.codelens.refresh, buffer, { once = true })
-    autocmd({ "BufWritePost", "CursorHold" }, augroup_codelens, vim.lsp.codelens.refresh, buffer)
-  end
-
+local set_autocommands = function(_, buffer)
   clear_autocmds(augroup_format, buffer)
+
   autocmd("BufWritePre", augroup_format, function()
     vim.lsp.buf.format({ async = false })
   end, buffer)
