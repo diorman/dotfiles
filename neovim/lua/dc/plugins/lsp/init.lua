@@ -30,9 +30,9 @@ local servers = {
   },
 
   -- lua
-  sumneko_lua = {
+  lua_ls = {
     enabled = true,
-    make_config = require("dc.plugins.lsp.sumneko-lua").make_config,
+    make_config = require("dc.plugins.lsp.lua-ls").make_config,
   },
 
   -- typescript
