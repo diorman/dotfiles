@@ -2,7 +2,7 @@
 
 let
   settings = import ../settings.nix;
-
+  devenv = (import (builtins.fetchTarball https://github.com/cachix/devenv/archive/v0.6.2.tar.gz)).default;
 in
 {
   home = {
@@ -22,6 +22,7 @@ in
       bat # A cat clone with syntax highlighting and Git integration
       coreutils # The basic file, shell and text manipulation utilities of the GNU operating system
       curl # A command line tool for transferring files with URL syntax
+      devenv # Fast, Declarative, Reproducible, and Composable Developer Environments using Nix
       findutils # GNU Find Utilities, the basic directory searching utilities of the GNU operating system
       fzf # A command-line fuzzy finder written in Go
       gawk # GNU implementation of the Awk programming language
