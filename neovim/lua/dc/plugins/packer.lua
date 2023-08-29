@@ -33,6 +33,7 @@ return require("packer").startup(function(use)
     requires = {
       -- Useful status updates for LSP
       "j-hui/fidget.nvim",
+      tag = "legacy",
     },
   })
 
