@@ -108,10 +108,6 @@ local function setup_keymaps()
   vim.keymap.set("n", "<C-b>n", "<cmd>bnext<CR>")
 end
 
-local function setup_theme()
-  vim.cmd("colorscheme nordfox")
-end
-
 local function setup_autocommands()
   vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     group = vim.api.nvim_create_augroup("trim-trailing-whitespace", { clear = true }),
@@ -122,5 +118,4 @@ end
 
 setup_options()
 setup_keymaps()
-setup_theme()
 setup_autocommands()
