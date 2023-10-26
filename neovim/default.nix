@@ -20,9 +20,6 @@ in
     # Go
     gopls
 
-    # Rust
-    rust-analyzer
-
     # Nix
     rnix-lsp
 
