@@ -50,7 +50,7 @@ def get_active_window_in_tab(tab: Tab) -> Optional[Window]:
     return active_window
 
 def get_tab_group_key(window: Window) -> str:
-    tab_group_key = window.child.current_cwd or window.child.cwd
+    tab_group_key = window.cwd_of_child
     tab_group_key = re.sub(f'^{CODEPATH}', '@code', tab_group_key)
     tab_group_key = re.sub(f'^{HOMEPATH}', '@home', tab_group_key)
     return tab_group_key
