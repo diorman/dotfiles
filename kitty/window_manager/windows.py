@@ -1,10 +1,18 @@
 import re
 from typing import List, Dict, Optional
-from kitty.boss import Boss
-from kitty.window import Window
-from kitty.tabs import Tab
+from kitty.boss import Boss, OSWindowDict
+from kitty.window import Window, WindowDict
+from kitty.tabs import Tab, TabDict
+from kitty.fast_data_types import get_os_window_title
 
 from system import HOMEPATH, CODEPATH
+
+class OSWindow:
+    def __init__(self, os_window_dict: OSWindowDict):
+        self.id = os_window_dict['id']
+        self.title = get_os_window_title(os_window_dict)
+        self.is_code_project = self.title.startswith('@code/')
+        self.is_focused = os_window_dict['is_focused']
 
 class TabGroup:
     def __init__(self):
@@ -16,24 +24,60 @@ class TabGroup:
         if not self.active_window or self.active_window.last_focused_at < tab_active_window.last_focused_at:
             self.active_window = tab_active_window
 
-def get_tab_groups(boss: Boss, os_window_id: int) -> Dict[str, Window]:
-    tab_groups = {}
+def list_os_windows(boss: Boss) -> list[OSWindow]:
+    os_windows = []
 
-    for tab in boss.all_tabs:
-        if tab.os_window_id != os_window_id:
-            continue
+    for os_window_dict in boss.list_os_windows():
+        os_windows.append(OSWindow(os_window_dict))
 
-        tab_active_window = get_active_window_in_tab(tab)
-        tab_group_key = get_tab_group_key(tab_active_window)
-        tab_group = tab_groups.get(tab_group_key)
+    return os_windows
 
-        if not tab_group:
-            tab_group = TabGroup()
-            tab_groups[tab_group_key] = tab_group
+def get_os_window_title(os_window_dict: OSWindowDict):
+    user_vars_title = os_window_dict['tabs'][0]['windows'][0]['user_vars'].get('title')
+    if user_vars_title:
+        return user_vars_title
 
-        tab_group.add_tab(tab, tab_active_window)
+    for tab_dict in os_window_dict['tabs']:
+        if tab_dict['is_active']:
+            return tab_dict['title']
 
-    return tab_groups
+    return ''
+
+def find_os_window_by_title(boss: Boss, title: str):
+    for os_window in list_os_windows(boss):
+        if os_window.title == title:
+            return os_window
+    return None
+
+class TabX:
+    def __init__(self, tab_dict: TabDict):
+        self.id = tab_dict['id']
+        self.title = tab_dict['title']
+        self.is_active = tab_dict['is_active']
+        self.number_of_windows = len(tab_dict['windows'])
+
+def list_tabs(boss: Boss, os_window_id: int) -> list[TabX]:
+    tm = boss.os_window_map.get(os_window_id)
+
+    if not tm:
+        return []
+
+    tabs = []
+    for tab_dict in tm.list_tabs():
+        tabs.append(TabX(tab_dict))
+
+    return tabs
+
+def set_active_tab(boss: Boss, os_window_id: int, tab_id: int):
+    tm = boss.os_window_map.get(os_window_id)
+
+    if not tm:
+        return
+
+    for tab in tm:
+        if tab.id == tab_id:
+            tm.set_active_tab(tab)
+            return
 
 def get_active_window_in_tab(tab: Tab) -> Optional[Window]:
     active_window = tab.active_window
@@ -48,12 +92,6 @@ def get_active_window_in_tab(tab: Tab) -> Optional[Window]:
             active_window = window
 
     return active_window
-
-def get_tab_group_key(window: Window) -> str:
-    tab_group_key = window.cwd_of_child
-    tab_group_key = re.sub(f'^{CODEPATH}', '@code', tab_group_key)
-    tab_group_key = re.sub(f'^{HOMEPATH}', '@home', tab_group_key)
-    return tab_group_key
 
 def is_kitten_with_ui_window(window: Window) -> bool:
     return (len(window.child.cmdline) >= 5

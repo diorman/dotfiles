@@ -2,8 +2,9 @@ from typing import List
 from kitty.boss import Boss
 from kitty.window import Window
 from kittens.tui.handler import result_handler
+from kitty.fast_data_types import focus_os_window, get_os_window_title
 
-from windows import get_tab_groups, get_tab_group_key, is_kitten_with_ui_window, get_active_window_in_tab, get_windows_in_tab
+from windows import list_tabs, set_active_tab, list_os_windows, is_kitten_with_ui_window, get_active_window_in_tab
 from system import HOMEPATH
 
 def main(args: List[str]) -> str:
@@ -23,106 +24,91 @@ def handle_result(args: List[str], answer: str, target_window_id: int, boss: Bos
     if not target_window:
         return
 
-    if action == 'select_tab_group':
-        select_tab_group_handler(boss, target_window)
-    elif action == 'select_tab_group_by_index':
-        select_tab_group_by_index_handler(boss, target_window, int(args[2]))
-    elif action == 'select_tab_in_tab_group':
-        select_tab_in_tab_group_handler(boss, target_window)
-    elif action == 'select_tab_in_tab_group_by_index':
-        select_tab_in_tab_group_by_index_handler(boss, target_window, int(args[2]))
-    elif action == 'return_tab_group':
-        return_tab_group_handler(boss, target_window)
-    elif action == 'return_tab_in_tab_group':
-        return_tab_in_tab_group_handler(boss, target_window)
+    if action == 'new_tab':
+        new_tab_handler(boss, target_window)
+    elif action == 'select_tab':
+        select_tab_handler(boss, target_window)
+    elif action == 'new_window':
+        new_window_handler(boss, target_window, args[2])
+    elif action == 'select_os_window':
+        select_os_window_handler(boss, target_window)
+    elif action == 'goto_os_window':
+        goto_os_window_handler(boss, target_window, int(args[2]))
+    elif action == 'close_other_os_windows':
+        close_other_os_windows_handler(boss, target_window)
 
-def select_tab_group_handler(boss: Boss, target_window: Window):
-    n = 1
+def new_tab_handler(boss: Boss, target_window: Window):
+    title = target_window.user_vars.get('title') or ''
+    boss.call_remote_control(target_window, ('launch', '--type=tab', f'--cwd=current', f'--var=title={title}', '--no-response'))
+
+def new_window_handler(boss: Boss, target_window: Window, location: str):
+    title = target_window.user_vars.get('title') or ''
+    boss.call_remote_control(target_window, ('launch', f'--location={location}', f'--cwd=current', f'--var=title={title}', '--no-response'))
+
+def select_os_window_handler(boss: Boss, target_window: Window):
     choices = []
-    tab_groups_keys = get_tab_groups(boss, target_window.os_window_id).keys()
-    target_tab_group_key = get_tab_group_key(target_window)
 
-    for tab_group_key in tab_groups_keys:
-        # the home tab group has its own key binding so it is excluded here
-        if tab_group_key != '@home':
-            choices.append(f'[{n}] {tab_group_key} {" " if tab_group_key == target_tab_group_key else ""}')
-            n += 1
+    for index, os_window in enumerate(list_os_windows(boss)):
+        choices.append(f'[{index + 1}] {os_window.title} {" " if os_window.is_focused else ""}')
 
     if choices:
-        boss.call_remote_control(target_window, ('kitten', './window_manager/kitten_with_ui.py', 'select_tab_group', *choices))
+        boss.call_remote_control(target_window, ('kitten', './window_manager/kitten_with_ui.py', 'select_os_window', *choices))
 
-def select_tab_group_by_index_handler(boss: Boss, target_window: Window, index: int):
-    tab_groups = get_tab_groups(boss, target_window.os_window_id)
-    tab_group = None
-
-    if index == 0:
-        tab_group = tab_groups.get('@home')
-        if not tab_group:
-            boss.call_remote_control(target_window, ('launch', '--type=tab', f'--cwd={HOMEPATH}', '--no-response'))
+def goto_os_window_handler(boss: Boss, target_window: Window, index: int):
+    if index == -1:
+        goto_default_os_window(boss, target_window)
+    elif index == 0:
+        goto_last_os_window(boss, target_window)
     else:
-        index -= 1
-        tab_groups_keys = list(filter(lambda key: key != '@home', tab_groups.keys()))
+        goto_index_os_window(boss, target_window, index - 1)
 
-        if index < len(tab_groups_keys):
-            tab_group = tab_groups.get(tab_groups_keys[index])
 
-    if tab_group:
-        boss.set_active_window(tab_group.active_window)
+def goto_default_os_window(boss: Boss, target_window: Window):
+    os_windows = [os_window for os_window in list_os_windows(boss) if not os_window.is_code_project]
 
-def select_tab_in_tab_group_handler(boss: Boss, target_window: Window):
-    tab_group_key = get_tab_group_key(target_window)
-    tab_group = get_tab_groups(boss, target_window.os_window_id).get(tab_group_key)
+    if not os_windows:
+        boss.call_remote_control(target_window, ('launch', '--type=os-window', '--no-response'))
+    else:
+        focus_os_window(os_windows[0].id)
 
-    if not tab_group:
+def goto_last_os_window(boss: Boss, target_window: Window):
+    last_window = None
+
+    for window in boss.all_windows:
+        if window.os_window_id != target_window.os_window_id and (not last_window or last_window.last_focused_at < window.last_focused_at):
+            last_window = window
+
+    if last_window:
+        focus_os_window(last_window.os_window_id)
+
+def goto_index_os_window(boss: Boss, target_window: Window, index: int):
+    os_windows = list_os_windows(boss)
+    if index < len(os_windows):
+        focus_os_window(os_windows[index].id)
+
+def select_tab_handler(boss: Boss, target_window: Window):
+    tabs = list_tabs(boss, target_window.os_window_id)
+
+    if not tabs:
         return
 
     choices = []
 
-    for index, (tab, active_window) in enumerate(tab_group.tabs):
-        len_windows = len(get_windows_in_tab(tab))
-        choices.append(f'[{index + 1}] {active_window.title} [{len_windows}w] {" " if active_window.tab_id == target_window.tab_id else ""}')
+    for index, tab in enumerate(tabs):
+        title = tab.title
+        is_active = tab.is_active
+        number_of_windows = tab.number_of_windows
+        choices.append(f'[{index + 1}] {title} [{number_of_windows}w] {" " if is_active else ""}')
 
-    boss.call_remote_control(target_window, ('kitten', './window_manager/kitten_with_ui.py', 'select_tab_in_tab_group', *choices))
+    boss.call_remote_control(target_window, ('kitten', './window_manager/kitten_with_ui.py', 'select_tab', *choices))
 
-def select_tab_in_tab_group_by_index_handler(boss: Boss, target_window: Window, index: int):
-    tab_group_key = get_tab_group_key(target_window)
-    tab_group = get_tab_groups(boss, target_window.os_window_id).get(tab_group_key)
-    index -= 1
+def close_other_os_windows_handler(boss, target_window):
+    os_window_ids = set()
 
-    if tab_group and index < len(tab_group.tabs):
-        _, active_window = tab_group.tabs[index]
-        boss.set_active_window(active_window)
+    for os_window in list_os_windows(boss):
+        if os_window.id != target_window.os_window_id:
+            os_window_ids.add(os_window.id)
 
+    for os_window_id in os_window_ids:
+        boss.confirm_os_window_close(os_window_id)
 
-def return_tab_group_handler(boss: Boss, target_window: Window):
-    current_tab_group_key = get_tab_group_key(target_window)
-    tab_groups = get_tab_groups(boss, target_window.os_window_id)
-    tab_groups.pop(current_tab_group_key)
-
-    active_window = None
-
-    for tab_group_key, tab_group in tab_groups.items():
-        if not active_window or active_window.last_focused_at < tab_group.active_window.last_focused_at:
-            active_window = tab_group.active_window
-
-    if active_window:
-        boss.set_active_window(active_window)
-
-def return_tab_in_tab_group_handler(boss: Boss, target_window: Window):
-    tab_group_key = get_tab_group_key(target_window)
-    tab_group = get_tab_groups(boss, target_window.os_window_id).get(tab_group_key)
-
-    if not tab_group:
-        return
-
-    active_window = None
-
-    for _, tab_active_window in tab_group.tabs:
-        if tab_group.active_window.id == tab_active_window.id:
-            continue
-
-        if not active_window or active_window.last_focused_at < tab_active_window.last_focused_at:
-            active_window = tab_active_window
-
-    if active_window:
-        boss.set_active_window(active_window)
