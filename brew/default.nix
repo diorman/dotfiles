@@ -18,6 +18,7 @@
     cask "dbeaver-community"
     cask "docker"
     cask "firefox"
+    cask "flux"
     cask "font-fira-code-nerd-font"
     cask "gimp"
     cask "github"
