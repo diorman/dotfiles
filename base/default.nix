@@ -6,7 +6,7 @@ let
 in
 {
   home = {
-    stateVersion = "23.05";
+    stateVersion = "23.11";
 
     username = builtins.getEnv "USER";
     homeDirectory = builtins.getEnv "HOME";
