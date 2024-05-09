@@ -31,10 +31,7 @@ in
 
       shellAbbrs = {
         g = "git";
-        ga = "git add";
-        gc = "git commit";
         gs = "git status";
-        gri = "git rebase -i HEAD~";
 
         hm = "home-manager";
 

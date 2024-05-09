@@ -15,11 +15,14 @@ in
     };
     extraConfig = {
       alias = {
-        a = "add";
-        c = "commit";
-        co = "checkout";
+        s = "status";
+        sw = "switch";
+        fsw = "fuzzy-switch";
+        co = "commit";
         commend = "commit --amend --no-edit";
-        st = "status";
+        stush = "stash --include-untracked";
+        rbi = "!f() { git rebase -i HEAD~$1; }; f";
+        fo = "!f() { git fetch origin $1:$1; }; f";
       };
       branch.autosetuprebase = "always";
       color = {
