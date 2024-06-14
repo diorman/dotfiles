@@ -5,7 +5,8 @@ let
   gitConfig = settings.git;
   devEnvBin = "${settings.codePath}/github.com/unbounce/dev-env/bin";
 
-in {
+in
+{
   home.sessionVariables = {
     PJ_DEFAULT_USER = "unbounce";
   };
@@ -30,5 +31,13 @@ in {
         };
       };
     }];
+    ignores = [
+      "devenv.*"
+      ".devenv/"
+      ".devenv.*"
+      ".envrc"
+      "shell.nix"
+      ".nix/"
+    ];
   };
 }
