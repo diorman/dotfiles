@@ -55,9 +55,6 @@ in
       ".classpath"
       ".project"
       ".settings"
-      ".envrc"
-      "shell.nix"
-      ".nix/"
       ".factorypath"
     ];
   };

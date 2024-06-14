@@ -2,7 +2,7 @@
 
 let
   settings = import ../settings.nix;
-  devenv = (import (builtins.fetchTarball https://github.com/cachix/devenv/archive/v0.6.2.tar.gz)).default;
+  devenv = (import (builtins.fetchTarball https://github.com/cachix/devenv/archive/v1.0.5.tar.gz)).default;
 in
 {
   home = {
