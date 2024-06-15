@@ -4,8 +4,8 @@
 2. Optionally change home manager version in `base/default.nix` (stateVersion)
 3. Add channels for the new version
   ```sh
-  nix-channel --add https://channels.nixos.org/nixos-23.11 nixpkgs
-  nix-channel --add https://github.com/nix-community/home-manager/archive/release-23.11.tar.gz home-manager
+  nix-channel --add https://channels.nixos.org/nixos-24.05 nixpkgs
+  nix-channel --add https://github.com/nix-community/home-manager/archive/release-24.05.tar.gz home-manager
   ```
 4. Update
   ```

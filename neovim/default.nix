@@ -21,7 +21,7 @@ in
     gopls
 
     # Nix
-    rnix-lsp
+    # rnix-lsp
 
     # Lua
     sumneko-lua-language-server
