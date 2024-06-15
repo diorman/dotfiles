@@ -50,7 +50,7 @@ def select_os_window_prompt(choices: List[str]):
     return fzf(choices, '-n 2')
 
 def select_os_window_handler(boss: Boss, target_window: Window, answer: str):
-    index = int(re.sub('[\[\]]', '', answer.split()[0])) - 1
+    index = int(re.sub('[\\[\\]]', '', answer.split()[0])) - 1
     os_windows = list_os_windows(boss)
     if os_windows and index < len(os_windows):
         focus_os_window(os_windows[index].id)
@@ -59,7 +59,7 @@ def select_tab_prompt(choices: List[str]):
     return fzf(choices, '-n 2')
 
 def select_tab_handler(boss: Boss, target_window: Window, answer: str):
-    index = int(re.sub('[\[\]]', '', answer.split()[0])) - 1
+    index = int(re.sub('[\\[\\]]', '', answer.split()[0])) - 1
     tabs = list_tabs(boss, target_window.os_window_id)
 
     if tabs and index < len(tabs):
