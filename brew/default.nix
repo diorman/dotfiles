@@ -9,14 +9,8 @@
   home.file.".Brewfile".text = ''
     tap "buo/cask-upgrade"
     tap "homebrew/bundle"
-    tap "homebrew/cask"
-    tap "homebrew/cask-fonts"
-    tap "homebrew/cask-versions"
-    tap "homebrew/core"
     brew "mas"
     cask "1password"
-    cask "dbeaver-community"
-    cask "docker"
     cask "firefox"
     cask "flux"
     cask "font-fira-code-nerd-font"
@@ -24,10 +18,7 @@
     cask "github"
     cask "karabiner-elements"
     cask "kitty"
-    cask "ngrok"
     cask "spotify"
-    cask "stoplight-studio"
-    cask "visual-studio-code"
     cask "wireshark"
     mas "Slack", id: 803453959
     mas "Xcode", id: 497799835
